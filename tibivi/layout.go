@@ -39,8 +39,8 @@ func (tbv *Tibivi) layout(g *gocui.Gui) error {
 			if lastGWidth != gWidth {
 				tbv.g.Update(func(g *gocui.Gui) error {
 					for _, day := range tbv.Views.days {
-						width, _ := day.Size()
-						tbv.setDayViewContent(day, width)
+						width, height := day.Size()
+						tbv.setDayViewContent(day, width, height)
 					}
 					return nil
 				})

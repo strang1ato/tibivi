@@ -41,13 +41,21 @@ func newTimeLine(b *Block, width int) string {
 }
 
 // setDayViewContent sets content of day of the week view
-func (tbv *Tibivi) setDayViewContent(v *gocui.View, width int) {
+func (tbv *Tibivi) setDayViewContent(v *gocui.View, width, height int) {
 	v.Clear()
+	var blockLength int
 	for _, b := range tbv.Schedule[v.Name()] {
 		fmt.Fprintln(v, b.content)
 		fmt.Fprint(v, "\x1b[33m"+newTimeLine(b, width)+"\x1b[0m")
 		fmt.Fprint(v, newSeparator(width))
+		blockLength += len(b.content)/width + 3
 	}
+	freeSpace := height - blockLength
+	fmt.Fprint(v, "\x1b[33m")
+	for i := 1; i < freeSpace; i++ {
+		fmt.Fprintln(v, "~")
+	}
+	fmt.Fprint(v, "~"+"\x1b[0m")
 }
 
 // setDayView setups day of the week view
@@ -62,8 +70,8 @@ func (tbv *Tibivi) setDayView(day string, x0, x1, y1 int) error {
 		v.Title = day
 		v.Wrap = true
 
-		width, _ := v.Size()
-		tbv.setDayViewContent(v, width)
+		width, height := v.Size()
+		tbv.setDayViewContent(v, width, height)
 
 		tbv.Views.days[day] = v
 	}
