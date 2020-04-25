@@ -1,7 +1,6 @@
 package tibivi
 
 import (
-	"fmt"
 	"time"
 
 	"github.com/oltarzewskik/gocui"
@@ -20,14 +19,8 @@ func (tbv *Tibivi) layout(g *gocui.Gui) error {
 		return err
 	}
 
-	if v, err := tbv.g.SetView(":", -1, maxY-2, 1, maxY); err != nil {
-		v.Frame = false
-		fmt.Fprint(v, ":")
-	}
-
-	if v, err := tbv.g.SetView("bar", 0, maxY-2, maxX, maxY); err != nil {
-		v.Editable = true
-		v.Frame = false
+	if err := tbv.setBar(maxX, maxY); err != nil {
+		return err
 	}
 
 	// Updates layout on resize
