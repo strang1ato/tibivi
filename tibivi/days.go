@@ -78,9 +78,27 @@ func (tbv *Tibivi) setDayView(day string, x0, x1, y1 int) error {
 	return nil
 }
 
+// previousDayView goes to previous day of the week view
+func (tbv *Tibivi) previousDayView(g *gocui.Gui, v *gocui.View) error {
+	previousIndex := tbv.selectedDay - 1
+	if previousIndex < 0 {
+		previousIndex = 6
+	}
+	name := tbv.days[previousIndex]
+	if _, err := tbv.setCurrentViewOnTop(name); err != nil {
+		return err
+	}
+
+	tbv.selectedDay = previousIndex
+	return nil
+}
+
 // nextDayView goes to next day of the week view
 func (tbv *Tibivi) nextDayView(g *gocui.Gui, v *gocui.View) error {
-	nextIndex := (tbv.selectedDay + 1) % len(tbv.days)
+	nextIndex := tbv.selectedDay + 1
+	if nextIndex > 6 {
+		nextIndex = 0
+	}
 	name := tbv.days[nextIndex]
 	if _, err := tbv.setCurrentViewOnTop(name); err != nil {
 		return err

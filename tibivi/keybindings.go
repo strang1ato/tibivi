@@ -10,6 +10,12 @@ func (tbv *Tibivi) keybindings() error {
 		return err
 	}
 
+	if err := tbv.g.SetKeybinding("", 'h', gocui.ModNone, tbv.previousDayView); err != nil {
+		return err
+	}
+	if err := tbv.g.SetKeybinding("", 'l', gocui.ModNone, tbv.nextDayView); err != nil {
+		return err
+	}
 	if err := tbv.g.SetKeybinding("", gocui.KeyTab, gocui.ModNone, tbv.nextDayView); err != nil {
 		return err
 	}
