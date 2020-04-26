@@ -2,6 +2,8 @@ package tibivi
 
 import (
 	"os"
+	"os/exec"
+	"strconv"
 
 	"github.com/oltarzewskik/gocui"
 )
@@ -32,36 +34,14 @@ func newTibivi() *Tibivi {
 	return tbv
 }
 
-// Run runs Tibivi
-func Run() error {
-	tbv := newTibivi()
-
-	if err := tbv.createDotTibivi(); err != nil {
-		return err
+// currentDay returns number of current day of the week
+func currentDay() int {
+	day, _ := exec.Command("/bin/sh", "-c", "date +%w").Output()
+	currentDay, _ := strconv.Atoi(string(day[:1]))
+	if currentDay == 0 {
+		currentDay = 6
+	} else {
+		currentDay--
 	}
-
-	if err := tbv.setSchedule(); err != nil {
-		return err
-	}
-
-	g, err := gocui.NewGui(gocui.OutputNormal)
-	if err != nil {
-		return err
-	}
-	tbv.g = g
-	defer tbv.g.Close()
-
-	tbv.g.Highlight = true
-	tbv.g.SelFgColor = gocui.ColorGreen
-
-	tbv.g.SetManagerFunc(tbv.layout)
-
-	if err := tbv.keybindings(); err != nil {
-		return err
-	}
-
-	if err := tbv.g.MainLoop(); err != nil && err != gocui.ErrQuit {
-		return err
-	}
-	return nil
+	return currentDay
 }

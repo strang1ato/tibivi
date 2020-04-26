@@ -2,42 +2,28 @@ package tibivi
 
 import (
 	"fmt"
-	"os/exec"
-	"strconv"
 
 	"github.com/oltarzewskik/gocui"
 )
 
-// currentDay returns number of current day of the week
-func currentDay() int {
-	day, _ := exec.Command("/bin/sh", "-c", "date +%w").Output()
-	currentDay, _ := strconv.Atoi(string(day[:1]))
-	if currentDay == 0 {
-		currentDay = 6
-	} else {
-		currentDay--
+// setDayView setups day of the week view
+func (tbv *Tibivi) setDayView(day string, x0, x1, y1 int) error {
+	if day == "Sunday" {
+		x1--
 	}
-	return currentDay
-}
+	if v, err := tbv.g.SetView(day, x0, 0, x1, y1); err != nil {
+		if err != gocui.ErrUnknownView {
+			return err
+		}
+		v.Title = day
+		v.Wrap = true
 
-// newSeparator returns string separator of given width
-func newSeparator(width int) string {
-	var separator string
-	for i := 0; i < width; i++ {
-		separator += "-"
-	}
-	return separator
-}
+		width, height := v.Size()
+		tbv.setDayViewContent(v, width, height)
 
-// newTimeLine returns string line with time of given width
-func newTimeLine(b *Block, width int) string {
-	whiteSpaces := width - (len(b.startHour) + len(b.endHour) + 7)
-	var line string
-	for i := 0; i < whiteSpaces; i++ {
-		line += " "
+		tbv.Views.days[day] = v
 	}
-	line += b.startHour + ":" + b.startMinute + "-" + b.endHour + ":" + b.endMinute
-	return line
+	return nil
 }
 
 // setDayViewContent sets content of day of the week view
@@ -58,24 +44,24 @@ func (tbv *Tibivi) setDayViewContent(v *gocui.View, width, height int) {
 	fmt.Fprint(v, "\x1b[0m")
 }
 
-// setDayView setups day of the week view
-func (tbv *Tibivi) setDayView(day string, x0, x1, y1 int) error {
-	if day == "Sunday" {
-		x1--
+// newSeparator returns string separator of given width
+func newSeparator(width int) string {
+	var separator string
+	for i := 0; i < width; i++ {
+		separator += "-"
 	}
-	if v, err := tbv.g.SetView(day, x0, 0, x1, y1); err != nil {
-		if err != gocui.ErrUnknownView {
-			return err
-		}
-		v.Title = day
-		v.Wrap = true
+	return separator
+}
 
-		width, height := v.Size()
-		tbv.setDayViewContent(v, width, height)
-
-		tbv.Views.days[day] = v
+// newTimeLine returns string line with time of given width
+func newTimeLine(b *Block, width int) string {
+	whiteSpaces := width - (len(b.startHour) + len(b.endHour) + 7)
+	var line string
+	for i := 0; i < whiteSpaces; i++ {
+		line += " "
 	}
-	return nil
+	line += b.startHour + ":" + b.startMinute + "-" + b.endHour + ":" + b.endMinute
+	return line
 }
 
 // previousDayView goes to previous day of the week view

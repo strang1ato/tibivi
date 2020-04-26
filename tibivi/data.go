@@ -34,6 +34,54 @@ func (tbv *Tibivi) createDatafiles() error {
 	return nil
 }
 
+// setSchedule supply `tbv.Schedule` with data from datafiles
+func (tbv *Tibivi) setSchedule() error {
+	for _, day := range tbv.days {
+		data, err := tbv.getData(day + ".txt")
+		if err != nil {
+			return err
+		}
+		tbv.Schedule[day] = data
+	}
+	return nil
+}
+
+// getData converts data defined in datafile and returns it
+func (tbv *Tibivi) getData(filename string) (Day, error) {
+	byteData, err := ioutil.ReadFile(tbv.dotTibivi + filename)
+	if err != nil {
+		return nil, err
+	}
+	data := strings.Split(string(byteData), "\n")
+	for i, entry := range data {
+		if len(entry) == 0 {
+			data = append(data[:i], data[i+1:]...)
+		}
+	}
+
+	day := make(Day, len(data))
+	for i, entry := range data {
+		day[i] = &Block{}
+		blockFields := []*string{&day[i].startHour, &day[i].startMinute, &day[i].endHour, &day[i].endMinute, &day[i].content}
+		var section int
+		for _, char := range entry {
+			if section != 4 && (char == ':' || char == ' ' || char == '-') {
+				section++
+				continue
+			}
+			*blockFields[section] += string(char)
+		}
+
+		day[i], err = tbv.addNumTimes(day[i])
+		if err != nil {
+			return nil, err
+		}
+	}
+
+	day = tbv.sortDay(day)
+	return day, nil
+}
+
 // addNumTimes adds numeric times and check if there are no defects in block
 func (tbv *Tibivi) addNumTimes(b *Block) (*Block, error) {
 	startHour, err := strconv.Atoi(b.startHour)
@@ -87,52 +135,4 @@ func (tbv *Tibivi) sortDay(day Day) Day {
 		}
 	}
 	return day
-}
-
-// getData converts data defined in datafile and returns it
-func (tbv *Tibivi) getData(filename string) (Day, error) {
-	byteData, err := ioutil.ReadFile(tbv.dotTibivi + filename)
-	if err != nil {
-		return nil, err
-	}
-	data := strings.Split(string(byteData), "\n")
-	for i, entry := range data {
-		if len(entry) == 0 {
-			data = append(data[:i], data[i+1:]...)
-		}
-	}
-
-	day := make(Day, len(data))
-	for i, entry := range data {
-		day[i] = &Block{}
-		blockFields := []*string{&day[i].startHour, &day[i].startMinute, &day[i].endHour, &day[i].endMinute, &day[i].content}
-		var section int
-		for _, char := range entry {
-			if section != 4 && (char == ':' || char == ' ' || char == '-') {
-				section++
-				continue
-			}
-			*blockFields[section] += string(char)
-		}
-
-		day[i], err = tbv.addNumTimes(day[i])
-		if err != nil {
-			return nil, err
-		}
-	}
-
-	day = tbv.sortDay(day)
-	return day, nil
-}
-
-// setSchedule supply `tbv.Schedule` with data from datafiles
-func (tbv *Tibivi) setSchedule() error {
-	for _, day := range tbv.days {
-		data, err := tbv.getData(day + ".txt")
-		if err != nil {
-			return err
-		}
-		tbv.Schedule[day] = data
-	}
-	return nil
 }
