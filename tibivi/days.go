@@ -52,10 +52,10 @@ func (tbv *Tibivi) setDayViewContent(v *gocui.View, width, height int) {
 	}
 	freeSpace := height - blockLength
 	fmt.Fprint(v, "\x1b[33m")
-	for i := 1; i < freeSpace; i++ {
+	for i := 0; i < freeSpace; i++ {
 		fmt.Fprintln(v, "~")
 	}
-	fmt.Fprint(v, "~"+"\x1b[0m")
+	fmt.Fprint(v, "\x1b[0m")
 }
 
 // setDayView setups day of the week view
