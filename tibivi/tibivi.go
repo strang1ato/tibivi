@@ -28,9 +28,11 @@ func newTibivi() *Tibivi {
 		dotTibivi:   os.Getenv("HOME") + "/.tibivi/",
 		Schedule:    Schedule{},
 		Views: &Views{
+			bar:  map[string]*gocui.View{},
 			days: map[string]*gocui.View{},
 		},
 	}
+	tbv.Views.currentViewOnTop = tbv.days[tbv.selectedDay]
 	return tbv
 }
 

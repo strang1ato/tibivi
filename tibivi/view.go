@@ -6,7 +6,8 @@ import (
 
 // Views is struct of all views in tibivi
 type Views struct {
-	days, extra map[string]*gocui.View
+	bar, days        map[string]*gocui.View
+	currentViewOnTop string
 }
 
 // setCurrentViewOnTop executes SetCurrentView and SetViewOnTop

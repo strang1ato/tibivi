@@ -24,6 +24,7 @@ func Run() error {
 	defer tbv.g.Close()
 
 	tbv.g.Highlight = true
+	tbv.g.InputEsc = true
 	tbv.g.SelFgColor = gocui.ColorGreen
 
 	tbv.g.SetManagerFunc(tbv.layout)

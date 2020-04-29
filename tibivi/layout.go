@@ -15,7 +15,7 @@ func (tbv *Tibivi) layout(g *gocui.Gui) error {
 		}
 	}
 
-	if _, err := tbv.setCurrentViewOnTop(tbv.days[tbv.selectedDay]); err != nil {
+	if _, err := tbv.setCurrentViewOnTop(tbv.Views.currentViewOnTop); err != nil {
 		return err
 	}
 

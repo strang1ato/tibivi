@@ -70,10 +70,7 @@ func (tbv *Tibivi) previousDayView(g *gocui.Gui, v *gocui.View) error {
 	if previousIndex < 0 {
 		previousIndex = 6
 	}
-	name := tbv.days[previousIndex]
-	if _, err := tbv.setCurrentViewOnTop(name); err != nil {
-		return err
-	}
+	tbv.Views.currentViewOnTop = tbv.days[previousIndex]
 
 	tbv.selectedDay = previousIndex
 	return nil
@@ -85,10 +82,7 @@ func (tbv *Tibivi) nextDayView(g *gocui.Gui, v *gocui.View) error {
 	if nextIndex > 6 {
 		nextIndex = 0
 	}
-	name := tbv.days[nextIndex]
-	if _, err := tbv.setCurrentViewOnTop(name); err != nil {
-		return err
-	}
+	tbv.Views.currentViewOnTop = tbv.days[nextIndex]
 
 	tbv.selectedDay = nextIndex
 	return nil
