@@ -6,3 +6,5 @@ github.com/oltarzewskik/gocui v0.1.1 h1:fNZdVA/Cu3MLxncmGs0Jl1oPoJGvdlBsZFr+lLdU
 github.com/oltarzewskik/gocui v0.1.1/go.mod h1:VDluuQmfiB7LB0qPNsFbSxbg3jSRVHyGIm9SvATRzuQ=
 github.com/oltarzewskik/gocui v0.1.2 h1:bVEDXU4AyUZR35ZzWcSiYJ4x4WV0YAsoMWSZ+rFogpk=
 github.com/oltarzewskik/gocui v0.1.2/go.mod h1:VDluuQmfiB7LB0qPNsFbSxbg3jSRVHyGIm9SvATRzuQ=
+github.com/oltarzewskik/tibivi-gocui v0.0.1 h1:iBAqfPbr4lgHPyS0iD1Wig7Fz72GPCwXm9U06ukNKtU=
+github.com/oltarzewskik/tibivi-gocui v0.0.1/go.mod h1:IyAoBPywG+Y2r1cynIMDAoR25KKEGhVbzIAB+P9+wtk=

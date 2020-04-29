@@ -5,34 +5,32 @@ import (
 	"os/exec"
 	"strconv"
 
-	"github.com/oltarzewskik/gocui"
+	"github.com/oltarzewskik/tibivi-gocui"
 )
 
 // Tibivi struct is tibivi project wrapper
 type Tibivi struct {
-	g           *gocui.Gui
-	currentDay  int
-	selectedDay int
-	days        []string
-	dotTibivi   string
-	Schedule    Schedule
-	Views       *Views
+	g          *gocui.Gui
+	currentDay int
+	days       []string
+	dotTibivi  string
+	Schedule   Schedule
+	Views      *Views
 }
 
 // newTibivi returns new Tibivi object
 func newTibivi() *Tibivi {
 	tbv := &Tibivi{
-		currentDay:  currentDay(),
-		selectedDay: currentDay(),
-		days:        []string{"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"},
-		dotTibivi:   os.Getenv("HOME") + "/.tibivi/",
-		Schedule:    Schedule{},
+		currentDay: currentDay(),
+		days:       []string{"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"},
+		dotTibivi:  os.Getenv("HOME") + "/.tibivi/",
+		Schedule:   Schedule{},
 		Views: &Views{
 			bar:  map[string]*gocui.View{},
 			days: map[string]*gocui.View{},
 		},
 	}
-	tbv.Views.currentViewOnTop = tbv.days[tbv.selectedDay]
+	tbv.Views.currentViewOnTop = tbv.days[tbv.currentDay]
 	return tbv
 }
 

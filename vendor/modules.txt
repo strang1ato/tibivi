@@ -4,6 +4,6 @@ github.com/mattn/go-runewidth
 # github.com/nsf/termbox-go v0.0.0-20200204031403-4d2b513ad8be
 ## explicit
 github.com/nsf/termbox-go
-# github.com/oltarzewskik/gocui v0.1.2
+# github.com/oltarzewskik/tibivi-gocui v0.0.1
 ## explicit
-github.com/oltarzewskik/gocui
+github.com/oltarzewskik/tibivi-gocui

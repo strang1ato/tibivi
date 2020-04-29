@@ -3,7 +3,7 @@ package tibivi
 import (
 	"time"
 
-	"github.com/oltarzewskik/gocui"
+	"github.com/oltarzewskik/tibivi-gocui"
 )
 
 // layout setups CUI layout

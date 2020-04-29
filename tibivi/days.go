@@ -3,7 +3,7 @@ package tibivi
 import (
 	"fmt"
 
-	"github.com/oltarzewskik/gocui"
+	"github.com/oltarzewskik/tibivi-gocui"
 )
 
 // setDayView setups day of the week view
@@ -66,24 +66,24 @@ func newTimeLine(b *Block, width int) string {
 
 // previousDayView goes to previous day of the week view
 func (tbv *Tibivi) previousDayView(g *gocui.Gui, v *gocui.View) error {
-	previousIndex := tbv.selectedDay - 1
+	previousIndex := tbv.g.SelectedDay - 1
 	if previousIndex < 0 {
 		previousIndex = 6
 	}
 	tbv.Views.currentViewOnTop = tbv.days[previousIndex]
 
-	tbv.selectedDay = previousIndex
+	tbv.g.SelectedDay = previousIndex
 	return nil
 }
 
 // nextDayView goes to next day of the week view
 func (tbv *Tibivi) nextDayView(g *gocui.Gui, v *gocui.View) error {
-	nextIndex := tbv.selectedDay + 1
+	nextIndex := tbv.g.SelectedDay + 1
 	if nextIndex > 6 {
 		nextIndex = 0
 	}
 	tbv.Views.currentViewOnTop = tbv.days[nextIndex]
 
-	tbv.selectedDay = nextIndex
+	tbv.g.SelectedDay = nextIndex
 	return nil
 }

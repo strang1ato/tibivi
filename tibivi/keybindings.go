@@ -1,7 +1,7 @@
 package tibivi
 
 import (
-	"github.com/oltarzewskik/gocui"
+	"github.com/oltarzewskik/tibivi-gocui"
 )
 
 // keybindings create keyboard keybindings

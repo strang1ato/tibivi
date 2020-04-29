@@ -3,7 +3,7 @@ package tibivi
 import (
 	"fmt"
 
-	"github.com/oltarzewskik/gocui"
+	"github.com/oltarzewskik/tibivi-gocui"
 )
 
 // setBar setups "bar" and ":" views
@@ -53,7 +53,7 @@ func (tbv *Tibivi) unfocusBar(g *gocui.Gui, v *gocui.View) error {
 
 	tbv.Views.bar["bar"].Clear()
 
-	tbv.Views.currentViewOnTop = tbv.days[tbv.selectedDay]
+	tbv.Views.currentViewOnTop = tbv.days[tbv.g.SelectedDay]
 	return nil
 }
 

@@ -66,6 +66,9 @@ type Gui struct {
 	// If ASCII is true then use ASCII instead of unicode to draw the
 	// interface. Using ASCII is more portable.
 	ASCII bool
+
+	// Contains indicator of currently selected day view. Defined for tibivi usecase
+	SelectedDay int
 }
 
 // NewGui returns a new Gui object with a given output mode.
@@ -442,7 +445,8 @@ func (g *Gui) flush() error {
 		}
 		if v.Frame {
 			var fgColor, bgColor Attribute
-			if g.Highlight && v == g.currentView {
+			days := []string{"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"}
+			if g.Highlight && v == g.currentView || v.Name() == days[g.SelectedDay] {
 				fgColor = g.SelFgColor
 				bgColor = g.SelBgColor
 			} else {

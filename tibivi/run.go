@@ -1,7 +1,7 @@
 package tibivi
 
 import (
-	"github.com/oltarzewskik/gocui"
+	"github.com/oltarzewskik/tibivi-gocui"
 )
 
 // Run runs Tibivi
@@ -26,6 +26,7 @@ func Run() error {
 	tbv.g.Highlight = true
 	tbv.g.InputEsc = true
 	tbv.g.SelFgColor = gocui.ColorGreen
+	tbv.g.SelectedDay = tbv.currentDay
 
 	tbv.g.SetManagerFunc(tbv.layout)
 
