@@ -30,16 +30,21 @@ func (tbv *Tibivi) layout(g *gocui.Gui) error {
 			time.Sleep(500 * time.Millisecond)
 			gWidth, _ := tbv.g.Size()
 			if lastGWidth != gWidth {
-				tbv.g.Update(func(g *gocui.Gui) error {
-					for _, day := range tbv.Views.days {
-						width, height := day.Size()
-						tbv.setDayViewContent(day, width, height)
-					}
-					return nil
-				})
+				tbv.updateLayout()
 				lastGWidth = gWidth
 			}
 		}
 	}()
 	return nil
+}
+
+// updateLayout updates layout
+func (tbv *Tibivi) updateLayout() {
+	tbv.g.Update(func(g *gocui.Gui) error {
+		for _, day := range tbv.Views.days {
+			width, height := day.Size()
+			tbv.setDayViewContent(day, width, height)
+		}
+		return nil
+	})
 }

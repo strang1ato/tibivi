@@ -37,7 +37,7 @@ func (tbv *Tibivi) createDatafiles() error {
 // setSchedule supply `tbv.Schedule` with data from datafiles
 func (tbv *Tibivi) setSchedule() error {
 	for _, day := range tbv.days {
-		data, err := tbv.getData(day + ".txt")
+		data, err := tbv.readData(day + ".txt")
 		if err != nil {
 			return err
 		}
@@ -46,8 +46,8 @@ func (tbv *Tibivi) setSchedule() error {
 	return nil
 }
 
-// getData converts data defined in datafile and returns it
-func (tbv *Tibivi) getData(filename string) (Day, error) {
+// readData converts data defined in datafile and returns it
+func (tbv *Tibivi) readData(filename string) (Day, error) {
 	byteData, err := ioutil.ReadFile(tbv.dotTibivi + filename)
 	if err != nil {
 		return nil, err
