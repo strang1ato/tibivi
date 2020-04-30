@@ -25,13 +25,13 @@ func (tbv *Tibivi) layout(g *gocui.Gui) error {
 
 	// Updates layout on resize
 	go func() {
-		lastGWidth, _ := tbv.g.Size()
+		lastMaxX, _ := tbv.g.Size()
 		for {
 			time.Sleep(500 * time.Millisecond)
-			gWidth, _ := tbv.g.Size()
-			if lastGWidth != gWidth {
+			maxX, _ := tbv.g.Size()
+			if lastMaxX != maxX {
 				tbv.updateLayout()
-				lastGWidth = gWidth
+				lastMaxX = maxX
 			}
 		}
 	}()
