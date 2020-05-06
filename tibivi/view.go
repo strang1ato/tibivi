@@ -4,9 +4,10 @@ import (
 	"github.com/oltarzewskik/tibivi-gocui"
 )
 
-// Views is struct of all views in tibivi
+// Views is struct of tibivi views and its etceteras
 type Views struct {
-	bar, days        map[string]*gocui.View
+	bar, days, menu  map[string]*gocui.View
+	addBlockFields   []string
 	currentViewOnTop string
 }
 

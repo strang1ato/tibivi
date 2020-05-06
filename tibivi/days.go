@@ -26,7 +26,7 @@ func (tbv *Tibivi) setDayView(day string, x0, x1, y1 int) error {
 	return nil
 }
 
-// setDayViewContent sets content of day of the week view
+// setDayViewContent sets content of day view
 func (tbv *Tibivi) setDayViewContent(v *gocui.View, width, height int) {
 	v.Clear()
 	var blockLength int
@@ -55,16 +55,16 @@ func newSeparator(width int) string {
 
 // newTimeLine returns string line with time of given width
 func newTimeLine(b *Block, width int) string {
-	whiteSpaces := width - (len(b.startHour) + len(b.endHour) + 7)
+	whiteSpaces := width - (len(b.startHour) + len(b.finishHour) + 7)
 	var line string
 	for i := 0; i < whiteSpaces; i++ {
 		line += " "
 	}
-	line += b.startHour + ":" + b.startMinute + "-" + b.endHour + ":" + b.endMinute
+	line += b.startHour + ":" + b.startMinute + "-" + b.finishHour + ":" + b.finishMinute
 	return line
 }
 
-// previousDayView goes to previous day of the week view
+// previousDayView goes to previous day view
 func (tbv *Tibivi) previousDayView(g *gocui.Gui, v *gocui.View) error {
 	previousIndex := tbv.g.SelectedDay - 1
 	if previousIndex < 0 {
@@ -76,7 +76,7 @@ func (tbv *Tibivi) previousDayView(g *gocui.Gui, v *gocui.View) error {
 	return nil
 }
 
-// nextDayView goes to next day of the week view
+// nextDayView goes to next day view
 func (tbv *Tibivi) nextDayView(g *gocui.Gui, v *gocui.View) error {
 	nextIndex := tbv.g.SelectedDay + 1
 	if nextIndex > 6 {

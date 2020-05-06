@@ -3,51 +3,12 @@ package tibivi
 import (
 	"errors"
 	"io/ioutil"
-	"os"
 	"strconv"
 	"strings"
 )
 
-// Block consists fields of time block
-type Block struct {
-	startHour, startMinute,
-	endHour, endMinute,
-	content string
-	numStartTime, numEndTime float32
-}
-
-// Day consists time blocks of day of the week
-type Day []*Block
-
-// Schedule consists whole week schedule
-type Schedule map[string]Day
-
-// createDatafiles creates tibivi's datafiles if they don't exist
-func (tbv *Tibivi) createDatafiles() error {
-	for _, day := range tbv.days {
-		if _, err := os.Stat(tbv.dotTibivi + day + ".txt"); os.IsNotExist(err) {
-			if _, err := os.Create(tbv.dotTibivi + day + ".txt"); err != nil {
-				return err
-			}
-		}
-	}
-	return nil
-}
-
-// setSchedule supply `tbv.Schedule` with data from datafiles
-func (tbv *Tibivi) setSchedule() error {
-	for _, day := range tbv.days {
-		data, err := tbv.readData(day + ".txt")
-		if err != nil {
-			return err
-		}
-		tbv.Schedule[day] = data
-	}
-	return nil
-}
-
-// readData converts data defined in datafile and returns it
-func (tbv *Tibivi) readData(filename string) (Day, error) {
+// read converts data defined in datafile and returns it
+func (tbv *Tibivi) read(filename string) (Day, error) {
 	byteData, err := ioutil.ReadFile(tbv.dotTibivi + filename)
 	if err != nil {
 		return nil, err
@@ -62,7 +23,7 @@ func (tbv *Tibivi) readData(filename string) (Day, error) {
 	day := make(Day, len(data))
 	for i, entry := range data {
 		day[i] = &Block{}
-		blockFields := []*string{&day[i].startHour, &day[i].startMinute, &day[i].endHour, &day[i].endMinute, &day[i].content}
+		blockFields := []*string{&day[i].startHour, &day[i].startMinute, &day[i].finishHour, &day[i].finishMinute, &day[i].content}
 		var section int
 		for _, char := range entry {
 			if section != 4 && (char == ':' || char == ' ' || char == '-') {
@@ -92,34 +53,34 @@ func (tbv *Tibivi) addNumTimes(b *Block) (*Block, error) {
 	if err != nil {
 		return nil, err
 	}
-	endHour, err := strconv.Atoi(b.endHour)
+	finishHour, err := strconv.Atoi(b.finishHour)
 	if err != nil {
 		return nil, err
 	}
-	endMinute, err := strconv.Atoi(b.endMinute)
+	finishMinute, err := strconv.Atoi(b.finishMinute)
 	if err != nil {
 		return nil, err
 	}
 
 	if startHour > 23 || startHour < 0 {
-		return b, errors.New("Block start hour is wrong")
+		return nil, errors.New("Block start hour is wrong")
 	}
 	if startMinute > 60 || startMinute < 0 {
-		return b, errors.New("Block start minute is wrong")
+		return nil, errors.New("Block start minute is wrong")
 	}
-	if endHour > 23 || endHour < 0 {
-		return b, errors.New("Block end hour is wrong")
+	if finishHour > 23 || finishHour < 0 {
+		return nil, errors.New("Block end hour is wrong")
 	}
-	if endMinute > 60 || endMinute < 0 {
-		return b, errors.New("Block end minute is wrong")
+	if finishMinute > 60 || finishMinute < 0 {
+		return nil, errors.New("Block end minute is wrong")
 	}
 
 	numStartTime := float32(startHour) + float32(startMinute)/60
-	numEndTime := float32(endHour) + float32(endMinute)/60
-	if numStartTime >= numEndTime {
-		return b, errors.New("Block start time is equal or greater than end time")
+	numFinishTime := float32(finishHour) + float32(finishMinute)/60
+	if numStartTime >= numFinishTime {
+		return nil, errors.New("Block start time is equal or greater than end time")
 	}
-	b.numStartTime, b.numEndTime = numStartTime, numEndTime
+	b.numStartTime, b.numFinishTime = numStartTime, numFinishTime
 	return b, nil
 }
 

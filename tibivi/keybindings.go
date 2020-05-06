@@ -32,10 +32,47 @@ func (tbv *Tibivi) keybindings() error {
 	if err := tbv.g.SetKeybinding("bar", gocui.KeyEnter, gocui.ModNone, tbv.executeCommand); err != nil {
 		return err
 	}
+	// Keybindings for menu
+	if err := tbv.setViewsRuneKeybindings(tbv.days, []rune{'m', 'M'}, gocui.ModNone, tbv.setMenu); err != nil {
+		return err
+	}
+	if err := tbv.g.SetKeybinding("menu", gocui.KeyEsc, gocui.ModNone, tbv.deleteMenu); err != nil {
+		return err
+	}
+	if err := tbv.setRuneKeybindings("menu", []rune{'k', 'K'}, gocui.ModNone, tbv.previousMenuOption); err != nil {
+		return err
+	}
+	if err := tbv.setRuneKeybindings("menu", []rune{'j', 'J'}, gocui.ModNone, tbv.nextMenuOption); err != nil {
+		return err
+	}
+	if err := tbv.g.SetKeybinding("menu", gocui.KeyEnter, gocui.ModNone, tbv.runSelectedMenuOption); err != nil {
+		return err
+	}
+	if err := tbv.setViewsKeybinding(tbv.Views.addBlockFields, gocui.KeyEsc, gocui.ModNone, tbv.deleteAddBlock); err != nil {
+		return err
+	}
+	if err := tbv.setViewsRuneKeybindings(tbv.Views.addBlockFields, []rune{'l', 'L', 'j', 'J'}, gocui.ModNone,
+		tbv.nextAddBlockField); err != nil {
+		return err
+	}
+	if err := tbv.setViewsRuneKeybindings(tbv.Views.addBlockFields, []rune{'h', 'H', 'k', 'K'}, gocui.ModNone,
+		tbv.previousAddBlockField); err != nil {
+		return err
+	}
+	if err := tbv.setViewsKeybinding(tbv.Views.addBlockFields, gocui.KeyEnter, gocui.ModNone, tbv.submitAddBlock); err != nil {
+		return err
+	}
+	if err := tbv.setViewsRuneKeybindings(tbv.Views.addBlockFields, []rune{'i', 'I'}, gocui.ModNone,
+		tbv.addBlockFieldsInsertMode); err != nil {
+		return err
+	}
+	if err := tbv.setViewsKeybinding(tbv.Views.addBlockFields, gocui.KeyEsc, gocui.ModNone, tbv.addBlockFieldsNormalMode); err != nil {
+		return err
+	}
 	return nil
 }
 
-// setViewsKeybinding sets certain keybinding to set of views
+// setViewsKeybinding sets keybinding to set of views
 func (tbv *Tibivi) setViewsKeybinding(viewnames []string, key interface{}, mod gocui.Modifier,
 	handler func(*gocui.Gui, *gocui.View) error) error {
 	for _, viewname := range viewnames {
@@ -46,7 +83,7 @@ func (tbv *Tibivi) setViewsKeybinding(viewnames []string, key interface{}, mod g
 	return nil
 }
 
-// setViewsRuneKeybindings sets certain rune keybindings to set of views
+// setViewsRuneKeybindings sets rune keybindings to set of views
 func (tbv *Tibivi) setViewsRuneKeybindings(viewnames []string, keys []rune, mod gocui.Modifier,
 	handler func(*gocui.Gui, *gocui.View) error) error {
 	for _, viewname := range viewnames {
@@ -63,6 +100,18 @@ func (tbv *Tibivi) setRuneKeybindings(viewname string, keys []rune, mod gocui.Mo
 	for _, key := range keys {
 		if err := tbv.g.SetKeybinding(viewname, key, mod, handler); err != nil {
 			return err
+		}
+	}
+	return nil
+}
+
+// deleteViewsRuneKeybindings deletes set of rune keybindings from set of views
+func (tbv *Tibivi) deleteViewsRuneKeybindings(viewnames []string, keys []rune, mod gocui.Modifier) error {
+	for _, viewname := range viewnames {
+		for _, key := range keys {
+			if err := tbv.g.DeleteKeybinding(viewname, key, mod); err != nil {
+				return err
+			}
 		}
 	}
 	return nil
