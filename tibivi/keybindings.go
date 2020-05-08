@@ -32,6 +32,7 @@ func (tbv *Tibivi) keybindings() error {
 	if err := tbv.g.SetKeybinding("bar", gocui.KeyEnter, gocui.ModNone, tbv.executeCommand); err != nil {
 		return err
 	}
+
 	// Keybindings for menu
 	if err := tbv.setViewsRuneKeybindings(tbv.days, []rune{'m', 'M'}, gocui.ModNone, tbv.setMenu); err != nil {
 		return err
@@ -48,7 +49,19 @@ func (tbv *Tibivi) keybindings() error {
 	if err := tbv.g.SetKeybinding("menu", gocui.KeyEnter, gocui.ModNone, tbv.runSelectedMenuOption); err != nil {
 		return err
 	}
+
+	// Keybindings for add block
 	if err := tbv.setViewsKeybinding(tbv.Views.addBlockFields, gocui.KeyEsc, gocui.ModNone, tbv.deleteAddBlock); err != nil {
+		return err
+	}
+	if err := tbv.setViewsKeybinding(tbv.Views.addBlockFields, gocui.KeyEsc, gocui.ModNone, tbv.addBlockFieldsNormalMode); err != nil {
+		return err
+	}
+	if err := tbv.setViewsRuneKeybindings(tbv.Views.addBlockFields, []rune{'i', 'I'}, gocui.ModNone,
+		tbv.addBlockFieldsInsertMode); err != nil {
+		return err
+	}
+	if err := tbv.setViewsKeybinding(tbv.Views.addBlockFields, gocui.KeyEnter, gocui.ModNone, tbv.submitAddBlock); err != nil {
 		return err
 	}
 	if err := tbv.setViewsRuneKeybindings(tbv.Views.addBlockFields, []rune{'l', 'L', 'j', 'J'}, gocui.ModNone,
@@ -57,16 +70,6 @@ func (tbv *Tibivi) keybindings() error {
 	}
 	if err := tbv.setViewsRuneKeybindings(tbv.Views.addBlockFields, []rune{'h', 'H', 'k', 'K'}, gocui.ModNone,
 		tbv.previousAddBlockField); err != nil {
-		return err
-	}
-	if err := tbv.setViewsKeybinding(tbv.Views.addBlockFields, gocui.KeyEnter, gocui.ModNone, tbv.submitAddBlock); err != nil {
-		return err
-	}
-	if err := tbv.setViewsRuneKeybindings(tbv.Views.addBlockFields, []rune{'i', 'I'}, gocui.ModNone,
-		tbv.addBlockFieldsInsertMode); err != nil {
-		return err
-	}
-	if err := tbv.setViewsKeybinding(tbv.Views.addBlockFields, gocui.KeyEsc, gocui.ModNone, tbv.addBlockFieldsNormalMode); err != nil {
 		return err
 	}
 	return nil

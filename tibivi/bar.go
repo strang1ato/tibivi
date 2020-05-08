@@ -2,6 +2,7 @@ package tibivi
 
 import (
 	"fmt"
+	"strings"
 
 	"github.com/oltarzewskik/tibivi-gocui"
 )
@@ -65,16 +66,12 @@ func (tbv *Tibivi) executeCommand(g *gocui.Gui, v *gocui.View) error {
 
 	var notEmpty bool
 	if len(command) > 0 {
-		command = command[:len(command)-1]
-		for _, char := range command {
-			if char != ' ' {
-				notEmpty = true
-				break
-			}
-		}
+		command = strings.TrimSuffix(command, "\n")
+		notEmpty = true
 	}
+
 	switch command {
-	case "q!":
+	case "q", "q!":
 		return tbv.quitIgnore(g, v)
 	default:
 		if notEmpty {

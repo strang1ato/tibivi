@@ -10,11 +10,3 @@ type Views struct {
 	addBlockFields   []string
 	currentViewOnTop string
 }
-
-// setCurrentViewOnTop executes SetCurrentView and SetViewOnTop
-func (tbv *Tibivi) setCurrentViewOnTop(name string) (*gocui.View, error) {
-	if _, err := tbv.g.SetCurrentView(name); err != nil {
-		return nil, err
-	}
-	return tbv.g.SetViewOnTop(name)
-}

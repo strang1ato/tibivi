@@ -137,6 +137,24 @@ func (tbv *Tibivi) setAddBlock(maxX, maxY int) error {
 
 }
 
+// deleteAddBlock deletes addBlock view and all its field views
+func (tbv *Tibivi) deleteAddBlock(g *gocui.Gui, v *gocui.View) error {
+	if !tbv.g.Cursor {
+		tbv.Views.currentViewOnTop = tbv.days[tbv.g.SelectedDay]
+
+		if err := tbv.g.DeleteView("addBlock"); err != nil {
+			return err
+		}
+
+		for _, name := range tbv.Views.addBlockFields {
+			if err := tbv.g.DeleteView(name); err != nil {
+				return err
+			}
+		}
+	}
+	return nil
+}
+
 // addBlockFieldsNormalMode changes to normal mode
 func (tbv *Tibivi) addBlockFieldsNormalMode(g *gocui.Gui, v *gocui.View) error {
 	tbv.Views.bar["bar"].Clear()
@@ -178,24 +196,6 @@ func (tbv *Tibivi) addBlockFieldsInsertMode(g *gocui.Gui, v *gocui.View) error {
 	if err := tbv.deleteViewsRuneKeybindings(tbv.Views.addBlockFields,
 		[]rune{'l', 'L', 'j', 'J', 'h', 'H', 'k', 'K', 'i', 'I'}, gocui.ModNone); err != nil {
 		return err
-	}
-	return nil
-}
-
-// deleteAddBlock deletes addBlock view and all its field views
-func (tbv *Tibivi) deleteAddBlock(g *gocui.Gui, v *gocui.View) error {
-	if !tbv.g.Cursor {
-		tbv.Views.currentViewOnTop = tbv.days[tbv.g.SelectedDay]
-
-		if err := tbv.g.DeleteView("addBlock"); err != nil {
-			return err
-		}
-
-		for _, name := range tbv.Views.addBlockFields {
-			if err := tbv.g.DeleteView(name); err != nil {
-				return err
-			}
-		}
 	}
 	return nil
 }

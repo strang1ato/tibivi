@@ -15,7 +15,7 @@ func (tbv *Tibivi) layout(g *gocui.Gui) error {
 		}
 	}
 
-	if _, err := tbv.setCurrentViewOnTop(tbv.Views.currentViewOnTop); err != nil {
+	if err := tbv.setCurrentViewOnTop(tbv.Views.currentViewOnTop); err != nil {
 		return err
 	}
 
@@ -23,19 +23,21 @@ func (tbv *Tibivi) layout(g *gocui.Gui) error {
 		return err
 	}
 
-	// Updates layout on resize
-	go func() {
-		lastMaxX, _ := tbv.g.Size()
-		for {
-			time.Sleep(500 * time.Millisecond)
-			maxX, _ := tbv.g.Size()
-			if lastMaxX != maxX {
-				tbv.updateLayout()
-				lastMaxX = maxX
-			}
-		}
-	}()
+	go tbv.updateLayoutOnResize()
 	return nil
+}
+
+// updateLayoutOnResize when run in goroutine updates layout on resize
+func (tbv *Tibivi) updateLayoutOnResize() {
+	lastMaxX, _ := tbv.g.Size()
+	for {
+		time.Sleep(500 * time.Millisecond)
+		maxX, _ := tbv.g.Size()
+		if lastMaxX != maxX {
+			tbv.updateLayout()
+			lastMaxX = maxX
+		}
+	}
 }
 
 // updateLayout updates layout
