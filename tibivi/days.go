@@ -31,7 +31,11 @@ func (tbv *Tibivi) setDayViewContent(v *gocui.View, width, height int) {
 	v.Clear()
 	var blockLength int
 	for _, b := range tbv.Schedule[v.Name()] {
-		fmt.Fprintln(v, b.content)
+		if v.Name() == tbv.days[tbv.currentDay] && (tbv.currentTime >= b.numStartTime && tbv.currentTime < b.numFinishTime) {
+			fmt.Fprintln(v, "\x1b[31m"+b.content+"\x1b[0m")
+		} else {
+			fmt.Fprintln(v, b.content)
+		}
 		fmt.Fprint(v, "\x1b[33m"+newTimeLine(b, width)+"\x1b[0m")
 		fmt.Fprint(v, newSeparator(width))
 		blockLength += len(b.content)/width + 3

@@ -30,6 +30,10 @@ func Run() error {
 
 	tbv.g.SetManagerFunc(tbv.layout)
 
+	go tbv.updateLayoutOnCurrentBlockChange()
+
+	go tbv.updateLayoutOnResize()
+
 	if err := tbv.keybindings(); err != nil {
 		return err
 	}
