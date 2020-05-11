@@ -7,7 +7,7 @@ import (
 )
 
 var (
-	menuOptions                               []string = []string{"Add block", "Modify block", "Remove block"}
+	menuOptions                               = []string{"Add block", "Modify block", "Remove block"}
 	selectedMenuOption, selectedAddBlockField int
 )
 

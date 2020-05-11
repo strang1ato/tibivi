@@ -17,7 +17,7 @@ type Day []*Block
 type Block struct {
 	startHour, startMinute,
 	finishHour, finishMinute,
-	content string
+	description string
 	numStartTime, numFinishTime float32
 }
 
@@ -49,7 +49,7 @@ func (tbv *Tibivi) read(filename string) (Day, error) {
 	day := make(Day, len(data))
 	for i, entry := range data {
 		day[i] = &Block{}
-		blockFields := []*string{&day[i].startHour, &day[i].startMinute, &day[i].finishHour, &day[i].finishMinute, &day[i].content}
+		blockFields := []*string{&day[i].startHour, &day[i].startMinute, &day[i].finishHour, &day[i].finishMinute, &day[i].description}
 		var section int
 		for _, char := range entry {
 			if section != 4 && (char == ':' || char == ' ' || char == '-') {

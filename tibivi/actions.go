@@ -14,7 +14,7 @@ func (tbv *Tibivi) addBlock(startTime, finishTime, description string) error {
 	description = strings.TrimSuffix(description, "\n")
 
 	block := &Block{}
-	blockFields := []*string{&block.startHour, &block.startMinute, &block.finishHour, &block.finishMinute, &block.content}
+	blockFields := []*string{&block.startHour, &block.startMinute, &block.finishHour, &block.finishMinute, &block.description}
 
 	var section int
 	for _, char := range startTime {
@@ -26,9 +26,8 @@ func (tbv *Tibivi) addBlock(startTime, finishTime, description string) error {
 	}
 	if section != 1 {
 		return errors.New("Start time is invalid")
-	} else {
-		section++
 	}
+	section++
 	for _, char := range finishTime {
 		if char == ':' || char == '-' {
 			section++
@@ -38,13 +37,11 @@ func (tbv *Tibivi) addBlock(startTime, finishTime, description string) error {
 	}
 	if section != 3 {
 		return errors.New("Finish time is invalid")
-	} else {
-		if len(description) != 0 {
-			*blockFields[4] = description
-		} else {
-			return errors.New("Description is invalid")
-		}
 	}
+	if len(description) == 0 {
+		return errors.New("Description is invalid")
+	}
+	*blockFields[4] = description
 
 	block, err := addNumTimes(block)
 	if err != nil {
