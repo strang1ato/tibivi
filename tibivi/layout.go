@@ -25,6 +25,21 @@ func (tbv *Tibivi) layout(g *gocui.Gui) error {
 	return nil
 }
 
+// updateLayout updates layout
+func (tbv *Tibivi) updateLayout() {
+	tbv.g.Update(func(g *gocui.Gui) error {
+		for _, day := range tbv.Views.days {
+			width, height := day.Size()
+			if tbv.BlockUtils.selectedForMod || tbv.BlockUtils.selectedForRemove {
+				tbv.setDayViewSelectionContent(day, width, height)
+			} else {
+				tbv.setDayViewContent(day, width, height)
+			}
+		}
+		return nil
+	})
+}
+
 // updateLayoutOnCurrentBlockChange when run in goroutine updates layout if current time block changed
 func (tbv *Tibivi) updateLayoutOnCurrentBlockChange() {
 	for {
@@ -55,15 +70,4 @@ func (tbv *Tibivi) updateLayoutOnResize() {
 			lastMaxX = maxX
 		}
 	}
-}
-
-// updateLayout updates layout
-func (tbv *Tibivi) updateLayout() {
-	tbv.g.Update(func(g *gocui.Gui) error {
-		for _, day := range tbv.Views.days {
-			width, height := day.Size()
-			tbv.setDayViewContent(day, width, height)
-		}
-		return nil
-	})
 }

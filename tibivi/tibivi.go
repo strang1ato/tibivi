@@ -11,6 +11,8 @@ type Tibivi struct {
 	g           *gocui.Gui
 	Views       *Views
 	Schedule    Schedule
+	MenuUtils   *MenuUtils
+	BlockUtils  *BlockUtils
 	days        []string
 	dotTibivi   string
 	currentTime float32
@@ -21,12 +23,18 @@ type Tibivi struct {
 func newTibivi() *Tibivi {
 	tbv := &Tibivi{
 		Views: &Views{
-			bar:            map[string]*gocui.View{},
-			days:           map[string]*gocui.View{},
-			menu:           map[string]*gocui.View{},
-			addBlockFields: []string{"addBlockDescription", "addBlockStartTime", "addBlockFinishTime"},
+			bar:   map[string]*gocui.View{},
+			days:  map[string]*gocui.View{},
+			menu:  map[string]*gocui.View{},
+			block: map[string]*gocui.View{},
 		},
-		Schedule:    Schedule{},
+		Schedule: Schedule{},
+		MenuUtils: &MenuUtils{
+			options: []string{"Add block", "Modify block", "Remove block"},
+		},
+		BlockUtils: &BlockUtils{
+			formFields: []string{"formStartTime", "formFinishTime", "formDescription"},
+		},
 		days:        []string{"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"},
 		dotTibivi:   os.Getenv("HOME") + "/.tibivi/",
 		currentDay:  currentDay(),

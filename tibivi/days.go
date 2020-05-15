@@ -48,6 +48,67 @@ func (tbv *Tibivi) setDayViewContent(v *gocui.View, width, height int) {
 	fmt.Fprint(v, "\x1b[0m")
 }
 
+// setDayViewSelectionContent sets content of day view with higlighting of selected block for remove/modification
+func (tbv *Tibivi) setDayViewSelectionContent(v *gocui.View, width, height int) {
+	v.Clear()
+	var blockLength int
+	for i, b := range tbv.Schedule[v.Name()] {
+		if v.Name() == tbv.days[tbv.g.SelectedDay] && tbv.BlockUtils.selectedBlock == i {
+			fmt.Fprint(v, "\x1b[7m")
+			fmt.Fprint(v, b.description)
+			whiteSpaces := width - len(b.description)%width
+			for i := 0; i < whiteSpaces; i++ {
+				fmt.Fprint(v, " ")
+			}
+			fmt.Fprint(v, newTimeLine(b, width))
+			fmt.Fprint(v, "\x1b[0m")
+		} else {
+			fmt.Fprintln(v, b.description)
+			fmt.Fprint(v, "\x1b[33m"+newTimeLine(b, width)+"\x1b[0m")
+		}
+		fmt.Fprint(v, newSeparator(width))
+		blockLength += len(b.description)/width + 3
+	}
+	freeSpace := height - blockLength
+	fmt.Fprint(v, "\x1b[33m")
+	for i := 0; i < freeSpace; i++ {
+		fmt.Fprintln(v, "~")
+	}
+	fmt.Fprint(v, "\x1b[0m")
+}
+
+// nextDayView goes to next day view
+func (tbv *Tibivi) nextDayView(g *gocui.Gui, v *gocui.View) error {
+	nextIndex := tbv.g.SelectedDay + 1
+	if nextIndex > 6 {
+		nextIndex = 0
+	}
+	tbv.Views.currentViewOnTop = tbv.days[nextIndex]
+
+	tbv.g.SelectedDay = nextIndex
+
+	if tbv.BlockUtils.selectedForRemove || tbv.BlockUtils.selectedForMod {
+		tbv.moveBlockSelection()
+	}
+	return nil
+}
+
+// previousDayView goes to previous day view
+func (tbv *Tibivi) previousDayView(g *gocui.Gui, v *gocui.View) error {
+	previousIndex := tbv.g.SelectedDay - 1
+	if previousIndex < 0 {
+		previousIndex = 6
+	}
+	tbv.Views.currentViewOnTop = tbv.days[previousIndex]
+
+	tbv.g.SelectedDay = previousIndex
+
+	if tbv.BlockUtils.selectedForRemove || tbv.BlockUtils.selectedForMod {
+		tbv.moveBlockSelection()
+	}
+	return nil
+}
+
 // newSeparator returns string separator of given width
 func newSeparator(width int) string {
 	var separator string
@@ -68,26 +129,10 @@ func newTimeLine(b *Block, width int) string {
 	return line
 }
 
-// previousDayView goes to previous day view
-func (tbv *Tibivi) previousDayView(g *gocui.Gui, v *gocui.View) error {
-	previousIndex := tbv.g.SelectedDay - 1
-	if previousIndex < 0 {
-		previousIndex = 6
+func (tbv *Tibivi) moveBlockSelection() {
+	dayLen := len(tbv.Schedule[tbv.days[tbv.g.SelectedDay]])
+	if tbv.BlockUtils.selectedBlock >= dayLen && dayLen != 0 {
+		tbv.BlockUtils.selectedBlock = len(tbv.Schedule[tbv.days[tbv.g.SelectedDay]]) - 1
 	}
-	tbv.Views.currentViewOnTop = tbv.days[previousIndex]
-
-	tbv.g.SelectedDay = previousIndex
-	return nil
-}
-
-// nextDayView goes to next day view
-func (tbv *Tibivi) nextDayView(g *gocui.Gui, v *gocui.View) error {
-	nextIndex := tbv.g.SelectedDay + 1
-	if nextIndex > 6 {
-		nextIndex = 0
-	}
-	tbv.Views.currentViewOnTop = tbv.days[nextIndex]
-
-	tbv.g.SelectedDay = nextIndex
-	return nil
+	tbv.updateLayout()
 }
