@@ -9,8 +9,8 @@ import (
 )
 
 var (
-	Options        = []string{"Add block", "Modify block", "Remove block"}
-	SelectedOption int
+	options        = []string{"Add block", "Modify block", "Remove block"}
+	selectedOption int
 )
 
 // setMenu shows add/modify/remove block menu
@@ -20,8 +20,8 @@ func setMenu(g *gocui.Gui, v *gocui.View) error {
 		if err != gocui.ErrUnknownView {
 			return err
 		}
-		for i, option := range Options {
-			if i == SelectedOption {
+		for i, option := range options {
+			if i == selectedOption {
 				fmt.Fprintln(v, "\x1b[7m"+option+"\x1b[0m")
 				continue
 			}
@@ -37,9 +37,9 @@ func setMenu(g *gocui.Gui, v *gocui.View) error {
 	return nil
 }
 
-// runSelectedOption runs selected menu option
+// runselectedOption runs selected menu option
 func runSelectedMenuOption(g *gocui.Gui, v *gocui.View) error {
-	switch SelectedOption {
+	switch selectedOption {
 	case 0:
 		if err := block.SetAddBlockForm(); err != nil {
 			return err
@@ -49,7 +49,7 @@ func runSelectedMenuOption(g *gocui.Gui, v *gocui.View) error {
 	case 2:
 		block.SelectBlockForRemove()
 	}
-	SelectedOption = 0
+	selectedOption = 0
 	if err := common.G.DeleteView("menu"); err != nil {
 		return err
 	}
@@ -58,12 +58,12 @@ func runSelectedMenuOption(g *gocui.Gui, v *gocui.View) error {
 
 // nextMenuOption goes to next Menu option
 func nextMenuOption(g *gocui.Gui, v *gocui.View) error {
-	nextIndex := SelectedOption + 1
+	nextIndex := selectedOption + 1
 	if nextIndex > 2 {
 		nextIndex = 0
 	}
 	common.Views.Menu.Clear()
-	for i, option := range Options {
+	for i, option := range options {
 		if i == nextIndex {
 			fmt.Fprintln(v, "\x1b[7m"+option+"\x1b[0m")
 			continue
@@ -71,18 +71,18 @@ func nextMenuOption(g *gocui.Gui, v *gocui.View) error {
 		fmt.Fprintln(v, option)
 	}
 
-	SelectedOption = nextIndex
+	selectedOption = nextIndex
 	return nil
 }
 
 // previousMenuOption goes to previous Menu option
 func previousMenuOption(g *gocui.Gui, v *gocui.View) error {
-	previousIndex := SelectedOption - 1
+	previousIndex := selectedOption - 1
 	if previousIndex < 0 {
 		previousIndex = 2
 	}
 	common.Views.Menu.Clear()
-	for i, option := range Options {
+	for i, option := range options {
 		if i == previousIndex {
 			fmt.Fprintln(v, "\x1b[7m"+option+"\x1b[0m")
 			continue
@@ -90,7 +90,7 @@ func previousMenuOption(g *gocui.Gui, v *gocui.View) error {
 		fmt.Fprintln(v, option)
 	}
 
-	SelectedOption = previousIndex
+	selectedOption = previousIndex
 	return nil
 }
 

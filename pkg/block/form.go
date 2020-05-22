@@ -53,10 +53,10 @@ func setForm(maxX, maxY int) error {
 }
 
 // submitForm submits form if finish time field is selected
-func submitForm(f func(string, string, string) error, g *gocui.Gui, v *gocui.View) {
+func submitForm(action func(string, string, string) error, g *gocui.Gui, v *gocui.View) {
 	if selectedFormField > 1 {
 		formFieldsNormalMode(g, v)
-		err := f(common.Views.Block["formStartTime"].Buffer(),
+		err := action(common.Views.Block["formStartTime"].Buffer(),
 			common.Views.Block["formFinishTime"].Buffer(),
 			common.Views.Block["formDescription"].Buffer())
 		if err != nil {
