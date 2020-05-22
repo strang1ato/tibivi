@@ -33,6 +33,7 @@ func setMenu(g *gocui.Gui, v *gocui.View) error {
 		common.Views.Menu = v
 	}
 
+	block.ExitFromBlockSelection(g, v)
 	common.Views.Bar["bar"].Clear()
 	return nil
 }

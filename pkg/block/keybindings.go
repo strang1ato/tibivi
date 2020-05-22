@@ -34,6 +34,6 @@ func Keybindings() error {
 	// Keybindings for block selection
 	keybindings_utils.SetViewsRuneKeybindings(common.Days, []rune{'j', 'J'}, gocui.ModNone, selectNextBlock)
 	keybindings_utils.SetViewsRuneKeybindings(common.Days, []rune{'k', 'K'}, gocui.ModNone, selectPreviousBlock)
-	keybindings_utils.SetViewsKeybinding(common.Days, gocui.KeyEsc, gocui.ModNone, exitFromBlockSelection)
+	keybindings_utils.SetViewsKeybinding(common.Days, gocui.KeyEsc, gocui.ModNone, ExitFromBlockSelection)
 	return nil
 }

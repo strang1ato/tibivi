@@ -34,8 +34,8 @@ func selectPreviousBlock(g *gocui.Gui, v *gocui.View) error {
 	return nil
 }
 
-// exitFromBlockSelection exits from block selection
-func exitFromBlockSelection(g *gocui.Gui, v *gocui.View) error {
+// ExitFromBlockSelection exits from block selection
+func ExitFromBlockSelection(g *gocui.Gui, v *gocui.View) error {
 	common.SelectedBlock = 0
 	common.SelectBlockForRemove = false
 	common.SelectBlockForMod = false
