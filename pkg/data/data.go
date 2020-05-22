@@ -8,6 +8,9 @@ import (
 	"strings"
 )
 
+// Schedule is schedule of all days of the week
+var Schedule = map[string]Day{}
+
 // Day consists time blocks of day of the week
 type Day []*Block
 
@@ -18,8 +21,6 @@ type Block struct {
 	Description string
 	NumStartTime, NumFinishTime float32
 }
-
-var Schedule = map[string]Day{}
 
 // SetSchedule supplies `Schedule` with data from datafiles
 func SetSchedule() error {
@@ -110,7 +111,7 @@ func AddNumTimes(b *Block) (*Block, error) {
 	return b, nil
 }
 
-// sortDay sorts blocks by start time
+// SortDay sorts blocks by start time
 func SortDay(day Day) Day {
 	for i := 1; i < len(day); i++ {
 		j := i

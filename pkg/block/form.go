@@ -55,7 +55,7 @@ func setForm(maxX, maxY int) error {
 // submitForm submits form if finish time field is selected
 func submitForm(action func(string, string, string) error, g *gocui.Gui, v *gocui.View) {
 	if selectedFormField > 1 {
-		formFieldsNormalMode(g, v)
+		formNormalModeOrDeleteForm(g, v)
 		err := action(common.Views.Block["formStartTime"].Buffer(),
 			common.Views.Block["formFinishTime"].Buffer(),
 			common.Views.Block["formDescription"].Buffer())
@@ -72,14 +72,14 @@ func submitForm(action func(string, string, string) error, g *gocui.Gui, v *gocu
 	}
 }
 
-// formFieldsNormalMode changes to normal mode
-func formFieldsNormalMode(g *gocui.Gui, v *gocui.View) error {
+// formNormalModeOrDeleteForm changes to normal mode if insert mode, otherwise deletes form
+func formNormalModeOrDeleteForm(g *gocui.Gui, v *gocui.View) error {
 	if common.G.Cursor {
 		keybindings_utils.SetViewsRuneKeybindings(formFields, []rune{'l', 'L', 'j', 'J'}, gocui.ModNone, nextFormField)
 		keybindings_utils.SetViewsRuneKeybindings(formFields, []rune{'h', 'H', 'k', 'K'}, gocui.ModNone, previousFormField)
 
 		if err := keybindings_utils.SetViewsRuneKeybindings(formFields, []rune{'i', 'I'}, gocui.ModNone,
-			formFieldsInsertMode); err != nil {
+			formInsertMode); err != nil {
 			return err
 		}
 
@@ -95,8 +95,8 @@ func formFieldsNormalMode(g *gocui.Gui, v *gocui.View) error {
 	return nil
 }
 
-// formFieldsInsertMode changes to vi like insert mode
-func formFieldsInsertMode(g *gocui.Gui, v *gocui.View) error {
+// formInsertMode changes to vi like insert mode
+func formInsertMode(g *gocui.Gui, v *gocui.View) error {
 	if !common.G.Cursor {
 		if err := keybindings_utils.DeleteViewsRuneKeybindings(formFields,
 			[]rune{'l', 'L', 'j', 'J', 'h', 'H', 'k', 'K', 'i', 'I'}, gocui.ModNone); err != nil {

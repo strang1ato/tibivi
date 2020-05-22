@@ -6,7 +6,7 @@ import (
 	"github.com/oltarzewskik/tibivi/pkg/common"
 )
 
-// createDotTibivi creates tibivi's dotfolder with its files if they don't exist
+// CreateDotTibivi creates tibivi's dotfolder with its files if they don't exist
 func CreateDotTibivi() error {
 	// Create dotfolder
 	if _, err := os.Stat(common.DotTibivi); os.IsNotExist(err) {

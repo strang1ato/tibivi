@@ -10,7 +10,7 @@ import (
 	"github.com/oltarzewskik/tibivi/pkg/menu"
 )
 
-// keybindings create keyboard keybindings
+// Keybindings create keyboard keybindings
 func Keybindings() error {
 	// Keybinding for exiting tibivi without saving current state
 	if err := common.G.SetKeybinding("", gocui.KeyCtrlC, gocui.ModNone, actions.QuitIgnore); err != nil {

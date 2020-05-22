@@ -6,6 +6,7 @@ import (
 	"github.com/oltarzewskik/tibivi/pkg/keybindings/utils"
 )
 
+// Keybindings sets keybindings for bar
 func Keybindings() error {
 	keybindings_utils.SetViewsKeybinding(common.Days, ':', gocui.ModNone, focusBar)
 	common.G.SetKeybinding("bar", gocui.KeyEsc, gocui.ModNone, unFocusBar)

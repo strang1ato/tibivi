@@ -6,6 +6,7 @@ import (
 	"github.com/oltarzewskik/tibivi/pkg/keybindings/utils"
 )
 
+// Keybindings sets keybindings for add/modify/remove block
 func Keybindings() error {
 	// Keybindings for add block
 	keybindings_utils.SetViewsKeybinding(formFields, gocui.KeyEnter, gocui.ModNone, submitAddBlockForm)
@@ -18,11 +19,10 @@ func Keybindings() error {
 	keybindings_utils.SetViewsKeybinding(common.Days, gocui.KeyEnter, gocui.ModNone, removeSelctedBlock)
 
 	// Keybindings related to form
-	if err := keybindings_utils.SetViewsKeybinding(formFields, gocui.KeyEsc, gocui.ModNone, formFieldsNormalMode); err != nil {
+	if err := keybindings_utils.SetViewsKeybinding(formFields, gocui.KeyEsc, gocui.ModNone, formNormalModeOrDeleteForm); err != nil {
 		return err
 	}
-	if err := keybindings_utils.SetViewsRuneKeybindings(formFields, []rune{'i', 'I'}, gocui.ModNone,
-		formFieldsInsertMode); err != nil {
+	if err := keybindings_utils.SetViewsRuneKeybindings(formFields, []rune{'i', 'I'}, gocui.ModNone, formInsertMode); err != nil {
 		return err
 	}
 	keybindings_utils.SetViewsRuneKeybindings(formFields, []rune{'l', 'L', 'j', 'J'}, gocui.ModNone, nextFormField)

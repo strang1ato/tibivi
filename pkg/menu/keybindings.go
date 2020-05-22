@@ -6,6 +6,7 @@ import (
 	"github.com/oltarzewskik/tibivi/pkg/keybindings/utils"
 )
 
+// Keybindings sets keybindings for menu
 func Keybindings() error {
 	keybindings_utils.SetViewsRuneKeybindings(common.Days, []rune{'m', 'M'}, gocui.ModNone, setMenu)
 	if err := common.G.SetKeybinding("menu", gocui.KeyEnter, gocui.ModNone, runSelectedMenuOption); err != nil {
