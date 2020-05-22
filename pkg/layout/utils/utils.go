@@ -1,6 +1,8 @@
 package layout_utils
 
 import (
+	"os/exec"
+	"strconv"
 	"time"
 
 	"github.com/oltarzewskik/tibivi-gocui"
@@ -25,9 +27,10 @@ func UpdateLayout() {
 
 // UpdateLayoutOnCurrentBlockChange when run in goroutine updates layout if current time block changed
 func UpdateLayoutOnCurrentBlockChange() {
+	second, _ := exec.Command("date", "+%S").Output()
+	currentSecond, _ := strconv.ParseFloat(string(second[:2]), 32)
+	time.Sleep(time.Duration(60-currentSecond) * time.Second)
 	for {
-		time.Sleep(time.Minute)
-
 		common.CurrentTime = common.CurrentTime + float32(1)/60
 		if common.CurrentTime >= 24 {
 			common.CurrentTime = float32(0)
@@ -38,6 +41,8 @@ func UpdateLayoutOnCurrentBlockChange() {
 		}
 
 		UpdateLayout()
+
+		time.Sleep(time.Minute)
 	}
 }
 
