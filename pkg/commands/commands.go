@@ -1,12 +1,12 @@
-package tibivi
+package commands
 
 import (
 	"os/exec"
 	"strconv"
 )
 
-// currentDay returns number of current day of the week
-func currentDay() int {
+// CurrentDay returns number of current day of the week
+func CurrentDay() int {
 	day, _ := exec.Command("/bin/sh", "-c", "date +%w").Output()
 	currentDay, _ := strconv.Atoi(string(day[:1]))
 	if currentDay == 0 {
@@ -17,8 +17,8 @@ func currentDay() int {
 	return currentDay
 }
 
-// currentDay returns current time
-func currentTime() float32 {
+// CurrentTime returns current time
+func CurrentTime() float32 {
 	hour, _ := exec.Command("date", "+%H").Output()
 	currentHour, _ := strconv.ParseFloat(string(hour[:2]), 32)
 	minute, _ := exec.Command("date", "+%M").Output()
