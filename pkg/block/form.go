@@ -63,7 +63,7 @@ func submitForm(action func(string, string, string) error, g *gocui.Gui, v *gocu
 			common.Views.Bar["bar"].Clear()
 			fmt.Fprint(common.Views.Bar["bar"], "\x1b[41m"+err.Error()+"\x1b[0m")
 		} else {
-			deleteForm(g, v)
+			deleteForm()
 			layout_utils.UpdateLayout()
 		}
 	} else {
@@ -89,6 +89,8 @@ func formFieldsNormalMode(g *gocui.Gui, v *gocui.View) error {
 			common.Views.Block[name].Editable = false
 		}
 		common.G.Cursor = false
+	} else {
+		deleteForm()
 	}
 	return nil
 }
@@ -137,7 +139,7 @@ func previousFormField(g *gocui.Gui, v *gocui.View) error {
 }
 
 // deleteForm deletes form view and all its field views
-func deleteForm(g *gocui.Gui, v *gocui.View) error {
+func deleteForm() error {
 	if !common.G.Cursor {
 		common.CurrentViewOnTop = common.Days[common.G.SelectedDay]
 

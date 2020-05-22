@@ -27,9 +27,6 @@ func Keybindings() error {
 	}
 	keybindings_utils.SetViewsRuneKeybindings(formFields, []rune{'l', 'L', 'j', 'J'}, gocui.ModNone, nextFormField)
 	keybindings_utils.SetViewsRuneKeybindings(formFields, []rune{'h', 'H', 'k', 'K'}, gocui.ModNone, previousFormField)
-	if err := keybindings_utils.SetViewsKeybinding(formFields, gocui.KeyEsc, gocui.ModNone, deleteForm); err != nil {
-		return err
-	}
 
 	// Keybindings for block selection
 	keybindings_utils.SetViewsRuneKeybindings(common.Days, []rune{'j', 'J'}, gocui.ModNone, selectNextBlock)
