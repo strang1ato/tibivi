@@ -4,6 +4,7 @@ import (
 	"github.com/oltarzewskik/tibivi-gocui"
 )
 
+// Views is struct of tibivi views
 type Views struct {
 	Bar   map[string]*gocui.View
 	Days  map[string]*gocui.View

@@ -5,6 +5,7 @@ import (
 
 	"github.com/oltarzewskik/tibivi-gocui"
 	"github.com/oltarzewskik/tibivi/pkg/commands"
+	"github.com/oltarzewskik/tibivi/pkg/datatypes"
 	"github.com/oltarzewskik/tibivi/pkg/views"
 )
 
@@ -12,6 +13,7 @@ import (
 var (
 	G                    = g
 	Views                = views.SetViews()
+	Schedule             = datatypes.Schedule{}
 	Days                 = []string{"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"}
 	DotTibivi            = os.Getenv("HOME") + "/.tibivi/"
 	CurrentDay           = commands.CurrentDay()

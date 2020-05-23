@@ -1,41 +1,29 @@
-package data
+package schedule
 
 import (
 	"errors"
-	"github.com/oltarzewskik/tibivi/pkg/common"
 	"io/ioutil"
 	"strconv"
 	"strings"
+
+	"github.com/oltarzewskik/tibivi/pkg/common"
+	"github.com/oltarzewskik/tibivi/pkg/datatypes"
 )
-
-// Schedule is schedule of all days of the week
-var Schedule = map[string]Day{}
-
-// Day consists time blocks of day of the week
-type Day []*Block
-
-// Block consists fields of time block
-type Block struct {
-	StartHour, StartMinute,
-	FinishHour, FinishMinute,
-	Description string
-	NumStartTime, NumFinishTime float32
-}
 
 // SetSchedule supplies `Schedule` with data from datafiles
 func SetSchedule() error {
 	for _, day := range common.Days {
-		data, err := Read(day + ".txt")
+		data, err := read(day + ".txt")
 		if err != nil {
 			return err
 		}
-		Schedule[day] = data
+		common.Schedule[day] = data
 	}
 	return nil
 }
 
-// Read converts data defined in datafile and returns it
-func Read(filename string) (Day, error) {
+// read converts data defined in datafile and returns it
+func read(filename string) (datatypes.Day, error) {
 	byteData, err := ioutil.ReadFile(common.DotTibivi + filename)
 	if err != nil {
 		return nil, err
@@ -47,9 +35,9 @@ func Read(filename string) (Day, error) {
 		}
 	}
 
-	day := make(Day, len(data))
+	day := make(datatypes.Day, len(data))
 	for i, entry := range data {
-		day[i] = &Block{}
+		day[i] = &datatypes.Block{}
 		blockFields := []*string{&day[i].StartHour, &day[i].StartMinute, &day[i].FinishHour, &day[i].FinishMinute, &day[i].Description}
 		var section int
 		for _, char := range entry {
@@ -71,7 +59,7 @@ func Read(filename string) (Day, error) {
 }
 
 // AddNumTimes adds numeric times and check if there are no defects in block
-func AddNumTimes(b *Block) (*Block, error) {
+func AddNumTimes(b *datatypes.Block) (*datatypes.Block, error) {
 	StartHour, err := strconv.Atoi(b.StartHour)
 	if err != nil {
 		return nil, err
@@ -112,7 +100,7 @@ func AddNumTimes(b *Block) (*Block, error) {
 }
 
 // SortDay sorts blocks by start time
-func SortDay(day Day) Day {
+func SortDay(day datatypes.Day) datatypes.Day {
 	for i := 1; i < len(day); i++ {
 		j := i
 		for j > 0 {

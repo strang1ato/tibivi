@@ -5,8 +5,8 @@ import (
 
 	"github.com/oltarzewskik/tibivi-gocui"
 	"github.com/oltarzewskik/tibivi/pkg/common"
-	"github.com/oltarzewskik/tibivi/pkg/data"
 	"github.com/oltarzewskik/tibivi/pkg/layout/utils"
+	"github.com/oltarzewskik/tibivi/pkg/schedule"
 )
 
 // SelectBlockForMod selects block for modification
@@ -19,7 +19,7 @@ func SelectBlockForMod() {
 
 // setModBlockForm shows user view based modify block form
 func setModBlockForm(g *gocui.Gui, v *gocui.View) error {
-	day := data.Schedule[common.Days[common.G.SelectedDay]]
+	day := common.Schedule[common.Days[common.G.SelectedDay]]
 	dayLen := len(day)
 	if common.SelectBlockForMod && common.SelectedBlock < dayLen {
 		maxX, maxY := common.G.Size()
@@ -55,7 +55,7 @@ func modBlock(startTime, finishTime, Description string) error {
 		return err
 	}
 	removeBlock()
-	day := data.Schedule[common.Days[common.G.SelectedDay]]
-	data.Schedule[common.Days[common.G.SelectedDay]] = data.SortDay(append(day, block))
+	day := common.Schedule[common.Days[common.G.SelectedDay]]
+	common.Schedule[common.Days[common.G.SelectedDay]] = schedule.SortDay(append(day, block))
 	return nil
 }

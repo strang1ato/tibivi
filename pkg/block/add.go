@@ -6,7 +6,8 @@ import (
 
 	"github.com/oltarzewskik/tibivi-gocui"
 	"github.com/oltarzewskik/tibivi/pkg/common"
-	"github.com/oltarzewskik/tibivi/pkg/data"
+	"github.com/oltarzewskik/tibivi/pkg/datatypes"
+	"github.com/oltarzewskik/tibivi/pkg/schedule"
 )
 
 var addingBlock bool
@@ -39,18 +40,18 @@ func addBlock(startTime, finishTime, Description string) error {
 	if err != nil {
 		return err
 	}
-	day := data.Schedule[common.Days[common.G.SelectedDay]]
-	data.Schedule[common.Days[common.G.SelectedDay]] = data.SortDay(append(day, block))
+	day := common.Schedule[common.Days[common.G.SelectedDay]]
+	common.Schedule[common.Days[common.G.SelectedDay]] = schedule.SortDay(append(day, block))
 	return nil
 }
 
 // createBlock create, test and return new block
-func createBlock(startTime, finishTime, Description string) (*data.Block, error) {
+func createBlock(startTime, finishTime, Description string) (*datatypes.Block, error) {
 	startTime = strings.TrimSuffix(startTime, "\n")
 	finishTime = strings.TrimSuffix(finishTime, "\n")
 	Description = strings.TrimSuffix(Description, "\n")
 
-	block := &data.Block{}
+	block := &datatypes.Block{}
 	blockFields := []*string{&block.StartHour, &block.StartMinute, &block.FinishHour, &block.FinishMinute, &block.Description}
 
 	var section int
@@ -80,7 +81,7 @@ func createBlock(startTime, finishTime, Description string) (*data.Block, error)
 	}
 	*blockFields[4] = Description
 
-	block, err := data.AddNumTimes(block)
+	block, err := schedule.AddNumTimes(block)
 	if err != nil {
 		return nil, err
 	}

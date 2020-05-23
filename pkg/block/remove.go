@@ -3,7 +3,6 @@ package block
 import (
 	"github.com/oltarzewskik/tibivi-gocui"
 	"github.com/oltarzewskik/tibivi/pkg/common"
-	"github.com/oltarzewskik/tibivi/pkg/data"
 	"github.com/oltarzewskik/tibivi/pkg/layout/utils"
 )
 
@@ -27,10 +26,10 @@ func removeSelctedBlock(g *gocui.Gui, v *gocui.View) error {
 
 // removeBlock removes selected block
 func removeBlock() {
-	day := data.Schedule[common.Days[common.G.SelectedDay]]
+	day := common.Schedule[common.Days[common.G.SelectedDay]]
 	for i := range day {
 		if i == common.SelectedBlock {
-			data.Schedule[common.Days[common.G.SelectedDay]] = append(day[:i], day[i+1:]...)
+			common.Schedule[common.Days[common.G.SelectedDay]] = append(day[:i], day[i+1:]...)
 			break
 		}
 	}

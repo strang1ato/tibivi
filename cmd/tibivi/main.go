@@ -6,10 +6,10 @@ import (
 	"github.com/oltarzewskik/tibivi-gocui"
 	"github.com/oltarzewskik/tibivi/pkg/common"
 	"github.com/oltarzewskik/tibivi/pkg/config"
-	"github.com/oltarzewskik/tibivi/pkg/data"
 	"github.com/oltarzewskik/tibivi/pkg/keybindings"
 	"github.com/oltarzewskik/tibivi/pkg/layout"
 	"github.com/oltarzewskik/tibivi/pkg/layout/utils"
+	"github.com/oltarzewskik/tibivi/pkg/schedule"
 )
 
 func main() {
@@ -26,7 +26,7 @@ func run() error {
 		return err
 	}
 
-	if err := data.SetSchedule(); err != nil {
+	if err := schedule.SetSchedule(); err != nil {
 		return err
 	}
 

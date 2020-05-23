@@ -3,7 +3,6 @@ package days
 import (
 	"github.com/oltarzewskik/tibivi-gocui"
 	"github.com/oltarzewskik/tibivi/pkg/common"
-	"github.com/oltarzewskik/tibivi/pkg/data"
 	"github.com/oltarzewskik/tibivi/pkg/days/utils"
 	"github.com/oltarzewskik/tibivi/pkg/layout/utils"
 )
@@ -61,9 +60,9 @@ func previousDayView(g *gocui.Gui, v *gocui.View) error {
 }
 
 func moveBlockSelection() {
-	dayLen := len(data.Schedule[common.Days[common.G.SelectedDay]])
+	dayLen := len(common.Schedule[common.Days[common.G.SelectedDay]])
 	if common.SelectedBlock >= dayLen && dayLen != 0 {
-		common.SelectedBlock = len(data.Schedule[common.Days[common.G.SelectedDay]]) - 1
+		common.SelectedBlock = len(common.Schedule[common.Days[common.G.SelectedDay]]) - 1
 	}
 	layout_utils.UpdateLayout()
 }
