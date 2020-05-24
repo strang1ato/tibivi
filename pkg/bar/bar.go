@@ -73,8 +73,14 @@ func executeCommand(g *gocui.Gui, v *gocui.View) error {
 	}
 
 	switch command {
-	case "q", "q!":
+	case "q":
+		return actions.Quit()
+	case "q!":
 		return actions.QuitIgnore(g, v)
+	case "w", "w!":
+		return actions.Write()
+	case "wq", "wq!":
+		return actions.WriteQuit()
 	default:
 		if notEmpty {
 			fmt.Fprint(common.Views.Bar["bar"], "\x1b[41m"+"Not a tibivi command: "+command+"\x1b[0m")

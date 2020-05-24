@@ -42,6 +42,8 @@ func addBlock(startTime, finishTime, Description string) error {
 	}
 	day := common.Schedule[common.Days[common.G.SelectedDay]]
 	common.Schedule[common.Days[common.G.SelectedDay]] = schedule.SortDay(append(day, block))
+
+	common.UpdatedDays[common.Days[common.G.SelectedDay]] = true
 	return nil
 }
 

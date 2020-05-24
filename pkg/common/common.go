@@ -19,6 +19,7 @@ var (
 	CurrentDay           = commands.CurrentDay()
 	CurrentTime          = commands.CurrentTime()
 	CurrentViewOnTop     = Days[CurrentDay]
+	UpdatedDays          = make(map[string]bool)
 	SelectedBlock        int
 	SelectBlockForMod    bool
 	SelectBlockForRemove bool
