@@ -20,6 +20,9 @@ func main() {
 
 // run runs Tibivi
 func run() error {
+	if err := common.SetCommonVars(); err != nil {
+		return err
+	}
 	defer common.G.Close()
 
 	if err := config.CreateDotTibivi(); err != nil {

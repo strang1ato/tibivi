@@ -11,18 +11,44 @@ import (
 
 // Declare variables used by multiple packages
 var (
-	G                    = g
-	Views                = views.SetViews()
-	Schedule             = datatypes.Schedule{}
-	Days                 = []string{"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"}
-	DotTibivi            = os.Getenv("HOME") + "/.tibivi/"
-	CurrentDay           = commands.CurrentDay()
-	CurrentTime          = commands.CurrentTime()
-	CurrentViewOnTop     = Days[CurrentDay]
-	UpdatedDays          = make(map[string]bool)
+	G                    *gocui.Gui
+	Views                *views.Views
+	Schedule             datatypes.Schedule
+	Days                 []string
+	DotTibivi            string
+	CurrentDay           int
+	CurrentTime          float32
+	CurrentViewOnTop     string
+	UpdatedDays          map[string]bool
 	SelectedBlock        int
 	SelectBlockForMod    bool
 	SelectBlockForRemove bool
 )
 
-var g, _ = gocui.NewGui(gocui.OutputNormal)
+// SetCommonVars assigns values to common variables
+func SetCommonVars() error {
+	g, err := gocui.NewGui(gocui.OutputNormal)
+	if err != nil {
+		return err
+	}
+	home := os.Getenv("HOME")
+	currentDay, err := commands.CurrentDay()
+	if err != nil {
+		return err
+	}
+	currentTime, err := commands.CurrentTime()
+	if err != nil {
+		return err
+	}
+
+	G = g
+	Views = views.SetViews()
+	Schedule = datatypes.Schedule{}
+	Days = []string{"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"}
+	DotTibivi = home + "/.tibivi/"
+	CurrentDay = currentDay
+	CurrentTime = currentTime
+	CurrentViewOnTop = Days[CurrentDay]
+	UpdatedDays = make(map[string]bool)
+	return nil
+}
