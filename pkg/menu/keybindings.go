@@ -17,5 +17,8 @@ func Keybindings() error {
 	if err := common.G.SetKeybinding("menu", gocui.KeyEsc, gocui.ModNone, deleteMenu); err != nil {
 		return err
 	}
+	if err := keybindings_utils.SetRuneKeybindings("menu", []rune{'q', 'Q'}, gocui.ModNone, deleteMenu); err != nil {
+		return err
+	}
 	return nil
 }

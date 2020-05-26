@@ -22,6 +22,9 @@ func Keybindings() error {
 	if err := keybindings_utils.SetViewsKeybinding(formFields, gocui.KeyEsc, gocui.ModNone, formNormalModeOrDeleteForm); err != nil {
 		return err
 	}
+	if err := keybindings_utils.SetViewsRuneKeybindings(formFields, []rune{'q', 'Q'}, gocui.ModNone, formNormalModeOrDeleteForm); err != nil {
+		return err
+	}
 	if err := keybindings_utils.SetViewsRuneKeybindings(formFields, []rune{'i', 'I'}, gocui.ModNone, formInsertMode); err != nil {
 		return err
 	}
@@ -32,5 +35,6 @@ func Keybindings() error {
 	keybindings_utils.SetViewsRuneKeybindings(common.Days, []rune{'j', 'J'}, gocui.ModNone, selectNextBlock)
 	keybindings_utils.SetViewsRuneKeybindings(common.Days, []rune{'k', 'K'}, gocui.ModNone, selectPreviousBlock)
 	keybindings_utils.SetViewsKeybinding(common.Days, gocui.KeyEsc, gocui.ModNone, ExitFromBlockSelection)
+	keybindings_utils.SetViewsRuneKeybindings(common.Days, []rune{'q', 'Q'}, gocui.ModNone, ExitFromBlockSelection)
 	return nil
 }
