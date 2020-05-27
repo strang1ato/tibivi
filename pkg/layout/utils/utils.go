@@ -3,6 +3,7 @@ package layout_utils
 import (
 	"os/exec"
 	"strconv"
+	"sync"
 	"time"
 
 	"github.com/oltarzewskik/tibivi-gocui"
@@ -25,6 +26,8 @@ func UpdateLayout() {
 	})
 }
 
+var mutex = sync.Mutex{}
+
 // UpdateLayoutOnCurrentBlockChange when run in goroutine updates layout if current time block changed
 func UpdateLayoutOnCurrentBlockChange() {
 	second, _ := exec.Command("date", "+%S").Output()
@@ -40,7 +43,9 @@ func UpdateLayoutOnCurrentBlockChange() {
 			}
 		}
 
+		mutex.Lock()
 		UpdateLayout()
+		mutex.Unlock()
 
 		time.Sleep(time.Minute)
 	}
@@ -54,7 +59,9 @@ func UpdateLayoutOnResize() {
 
 		maxX, _ := common.G.Size()
 		if lastMaxX != maxX {
+			mutex.Lock()
 			UpdateLayout()
+			mutex.Unlock()
 			lastMaxX = maxX
 		}
 	}
