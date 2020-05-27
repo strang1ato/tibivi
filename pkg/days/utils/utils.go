@@ -2,6 +2,7 @@ package days_utils
 
 import (
 	"fmt"
+	"unicode/utf8"
 
 	"github.com/oltarzewskik/tibivi-gocui"
 	"github.com/oltarzewskik/tibivi/pkg/common"
@@ -20,7 +21,7 @@ func SetDayViewContent(v *gocui.View, width, height int) {
 		}
 		fmt.Fprint(v, "\x1b[33m"+newTimeLine(b, width)+"\x1b[0m")
 		fmt.Fprint(v, newSeparator(width))
-		blockLength += len(b.Description)/width + 3
+		blockLength += utf8.RuneCountInString(b.Description)/width + 3
 	}
 	freeSpace := height - blockLength
 	fmt.Fprint(v, "\x1b[33m")
@@ -38,7 +39,7 @@ func SetDayViewSelectionContent(v *gocui.View, width, height int) {
 		if v.Name() == common.Days[common.G.SelectedDay] && common.SelectedBlock == i {
 			fmt.Fprint(v, "\x1b[7m")
 			fmt.Fprint(v, b.Description)
-			whiteSpaces := width - len(b.Description)%width
+			whiteSpaces := width - utf8.RuneCountInString(b.Description)%width
 			for i := 0; i < whiteSpaces; i++ {
 				fmt.Fprint(v, " ")
 			}
@@ -49,7 +50,7 @@ func SetDayViewSelectionContent(v *gocui.View, width, height int) {
 			fmt.Fprint(v, "\x1b[33m"+newTimeLine(b, width)+"\x1b[0m")
 		}
 		fmt.Fprint(v, newSeparator(width))
-		blockLength += len(b.Description)/width + 3
+		blockLength += utf8.RuneCountInString(b.Description)/width + 3
 	}
 	freeSpace := height - blockLength
 	fmt.Fprint(v, "\x1b[33m")
