@@ -17,6 +17,7 @@
   <img src="/docs/demo.gif">
 </div>
 
+
 ## Advantages of tibivi over other time blocking tools
 
 - ### Easy to use
@@ -42,7 +43,15 @@
 
   In tibivi you use emoji instead of images in order to arrange any time block
 
+
 ## Installation
+
+### From source
+
+Make sure you have Go 1.14 installed and `$GOPATH/bin` added to `$PATH`, then execute:
+```bash
+  go get -u github.com/oltarzewskik/tibivi
+```
 
 ### Binary
 
@@ -55,13 +64,6 @@ then set `0755` permission to file by for example:
 
 and move tibivi binary to directory in `$PATH`
 
-
-### From source
-
-Make sure you have Go 1.14 installed and `$GOPATH/bin` added to `$PATH`, then execute:
-```bash
-  go get -u github.com/oltarzewskik/tibivi
-```
 
 ## Keybindings
 
@@ -104,6 +106,7 @@ Make sure you have Go 1.14 installed and `$GOPATH/bin` added to `$PATH`, then ex
 | <kbd>j</kbd> <kbd>k</kbd> | Navigate in block selection  |
 | <kbd>Enter</kbd>          | Run specified in menu action |
 | <kbd>Esc</kbd>            | Exit block selection         |
+
 
 ## Commands
 
