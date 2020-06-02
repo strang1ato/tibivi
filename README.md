@@ -5,8 +5,11 @@
   <a href="https://goreportcard.com/report/github.com/oltarzewskik/tibivi">
     <img src="https://goreportcard.com/badge/github.com/oltarzewskik/tibivi">
   </a>
-  <a href="http://makeapullrequest.com/">
+  <a href="http://makeapullrequest.com">
     <img src="https://img.shields.io/badge/PRs-welcome-brightgreen">
+  </a>
+  <a href="https://github.com/oltarzewskik/tibivi/blob/master/LICENSE">
+    <img src="https://img.shields.io/badge/license-MIT-brightgreen">
   </a>
   <br>
   <br>
