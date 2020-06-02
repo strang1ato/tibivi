@@ -44,6 +44,18 @@
 
 ## Installation
 
+### Binary
+
+Download latest binary from [releases](https://github.com/oltarzewskik/tibivi/releases)
+
+then set `0755` permission to file by for example:
+```bash
+   chmod a+x <path-to-tibivi>
+```
+
+and move tibivi binary to directory in `$PATH`
+
+
 ### From source
 
 Make sure you have Go 1.14 installed and `$GOPATH/bin` added to `$PATH`, then execute:
