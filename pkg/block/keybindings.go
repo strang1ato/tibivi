@@ -22,9 +22,6 @@ func Keybindings() error {
 	if err := keybindings_utils.SetViewsKeybinding(formFields, gocui.KeyEsc, gocui.ModNone, formNormalModeOrDeleteForm); err != nil {
 		return err
 	}
-	if err := keybindings_utils.SetViewsRuneKeybindings(formFields, []rune{'q', 'Q'}, gocui.ModNone, formNormalModeOrDeleteForm); err != nil {
-		return err
-	}
 	if err := keybindings_utils.SetViewsRuneKeybindings(formFields, []rune{'i', 'I'}, gocui.ModNone, formInsertMode); err != nil {
 		return err
 	}
