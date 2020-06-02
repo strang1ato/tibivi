@@ -1,8 +1,6 @@
-package main
+package cmd
 
 import (
-	"log"
-
 	"github.com/oltarzewskik/tibivi-gocui"
 	"github.com/oltarzewskik/tibivi/pkg/common"
 	"github.com/oltarzewskik/tibivi/pkg/config"
@@ -12,14 +10,8 @@ import (
 	"github.com/oltarzewskik/tibivi/pkg/schedule"
 )
 
-func main() {
-	if err := run(); err != nil {
-		log.Panicln(err)
-	}
-}
-
-// run runs Tibivi
-func run() error {
+// Run runs Tibivi
+func Run() error {
 	if err := common.SetCommonVars(); err != nil {
 		return err
 	}
