@@ -9,12 +9,13 @@ import (
 // selectNextBlock selects next block
 func selectNextBlock(g *gocui.Gui, v *gocui.View) error {
 	if common.SelectBlockForRemove || common.SelectBlockForMod {
-		nextIndex := common.SelectedBlock + 1
-		dayLen := len(common.Schedule[common.Days[common.G.SelectedDay]])
-		if nextIndex >= dayLen {
-			nextIndex = dayLen - 1
+		// dayLen := len(common.Schedule[common.Days[common.G.SelectedDay]])
+		blocksInBuffer := common.BlocksInBuffer[common.Days[common.G.SelectedDay]]
+		if common.SelectedBlock < blocksInBuffer-1 {
+			common.SelectedBlock++
+		} else if common.SelectedBlock > blocksInBuffer-1 {
+			common.SelectedBlock = blocksInBuffer - 1
 		}
-		common.SelectedBlock = nextIndex
 		layout_utils.UpdateLayout()
 	}
 	return nil
@@ -23,12 +24,10 @@ func selectNextBlock(g *gocui.Gui, v *gocui.View) error {
 // selectPreviousBlock selects previous block
 func selectPreviousBlock(g *gocui.Gui, v *gocui.View) error {
 	if common.SelectBlockForRemove || common.SelectBlockForMod {
-		previousIndex := common.SelectedBlock - 1
-		if previousIndex < 0 {
-			previousIndex = 0
+		if common.SelectedBlock > 0 {
+			common.SelectedBlock--
+			layout_utils.UpdateLayout()
 		}
-		common.SelectedBlock = previousIndex
-		layout_utils.UpdateLayout()
 	}
 	return nil
 }

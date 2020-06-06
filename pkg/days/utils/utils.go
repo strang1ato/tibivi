@@ -4,16 +4,17 @@ import (
 	"fmt"
 	"unicode/utf8"
 
-	"github.com/oltarzewskik/tibivi-gocui"
+	// "github.com/oltarzewskik/tibivi-gocui"
 	"github.com/oltarzewskik/tibivi/pkg/common"
 	"github.com/oltarzewskik/tibivi/pkg/datatypes"
 )
 
 // SetDayViewContent sets content of day view
-func SetDayViewContent(v *gocui.View, width, height int) {
+func SetDayViewContent(day string, width, height int) {
+	v := common.Views.Days[day]
 	v.Clear()
-	var blockLength int
-	for _, b := range common.Schedule[v.Name()] {
+	freeSpace := height
+	for _, b := range common.Schedule[v.Name()][common.Shift[day]:] {
 		if v.Name() == common.Days[common.CurrentDay] && (common.CurrentTime >= b.NumStartTime && common.CurrentTime < b.NumFinishTime) {
 			fmt.Fprintln(v, "\x1b[31m"+b.Description+"\x1b[0m")
 		} else {
@@ -21,9 +22,8 @@ func SetDayViewContent(v *gocui.View, width, height int) {
 		}
 		fmt.Fprint(v, "\x1b[33m"+newTimeLine(b, width)+"\x1b[0m")
 		fmt.Fprint(v, newSeparator(width))
-		blockLength += utf8.RuneCountInString(b.Description)/width + 3
+		freeSpace -= utf8.RuneCountInString(b.Description)/width + 3
 	}
-	freeSpace := height - blockLength
 	fmt.Fprint(v, "\x1b[33m")
 	for i := 0; i < freeSpace; i++ {
 		fmt.Fprintln(v, "~")
@@ -32,10 +32,12 @@ func SetDayViewContent(v *gocui.View, width, height int) {
 }
 
 // SetDayViewSelectionContent sets content of day view with higlighting of selected block for remove/modification
-func SetDayViewSelectionContent(v *gocui.View, width, height int) {
+func SetDayViewSelectionContent(day string, width, height int) {
+	v := common.Views.Days[day]
 	v.Clear()
-	var blockLength int
-	for i, b := range common.Schedule[v.Name()] {
+	freeSpace := height
+	common.BlocksInBuffer[day] = 0
+	for i, b := range common.Schedule[v.Name()][common.Shift[day]:] {
 		if v.Name() == common.Days[common.G.SelectedDay] && common.SelectedBlock == i {
 			fmt.Fprint(v, "\x1b[7m")
 			fmt.Fprint(v, b.Description)
@@ -50,9 +52,11 @@ func SetDayViewSelectionContent(v *gocui.View, width, height int) {
 			fmt.Fprint(v, "\x1b[33m"+newTimeLine(b, width)+"\x1b[0m")
 		}
 		fmt.Fprint(v, newSeparator(width))
-		blockLength += utf8.RuneCountInString(b.Description)/width + 3
+		freeSpace -= utf8.RuneCountInString(b.Description)/width + 3
+		if freeSpace >= 0 {
+			common.BlocksInBuffer[day]++
+		}
 	}
-	freeSpace := height - blockLength
 	fmt.Fprint(v, "\x1b[33m")
 	for i := 0; i < freeSpace; i++ {
 		fmt.Fprintln(v, "~")

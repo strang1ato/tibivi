@@ -20,9 +20,11 @@ var (
 	CurrentTime          float32
 	CurrentViewOnTop     string
 	UpdatedDays          map[string]bool
+	BlocksInBuffer       map[string]int
 	SelectedBlock        int
 	SelectBlockForMod    bool
 	SelectBlockForRemove bool
+	Shift                map[string]int
 )
 
 // SetCommonVars assigns values to common variables
@@ -50,5 +52,7 @@ func SetCommonVars() error {
 	CurrentTime = currentTime
 	CurrentViewOnTop = Days[CurrentDay]
 	UpdatedDays = make(map[string]bool)
+	BlocksInBuffer = make(map[string]int)
+	Shift = make(map[string]int)
 	return nil
 }
