@@ -14,6 +14,7 @@ func SetDayViewContent(day string, width, height int) {
 	v := common.Views.Days[day]
 	v.Clear()
 	freeSpace := height
+	common.BlocksInBuffer[day] = 0
 	for _, b := range common.Schedule[v.Name()][common.Shift[day]:] {
 		if v.Name() == common.Days[common.CurrentDay] && (common.CurrentTime >= b.NumStartTime && common.CurrentTime < b.NumFinishTime) {
 			fmt.Fprintln(v, "\x1b[31m"+b.Description+"\x1b[0m")
@@ -23,6 +24,9 @@ func SetDayViewContent(day string, width, height int) {
 		fmt.Fprint(v, "\x1b[33m"+newTimeLine(b, width)+"\x1b[0m")
 		fmt.Fprint(v, newSeparator(width))
 		freeSpace -= utf8.RuneCountInString(b.Description)/width + 3
+		if freeSpace >= 0 {
+			common.BlocksInBuffer[day]++
+		}
 	}
 	fmt.Fprint(v, "\x1b[33m")
 	for i := 0; i < freeSpace; i++ {
