@@ -26,12 +26,13 @@ func removeSelctedBlock(g *gocui.Gui, v *gocui.View) error {
 
 // removeBlock removes selected block
 func removeBlock() {
-	day := common.Schedule[common.Days[common.G.SelectedDay]]
+	selectedDay := common.Days[common.G.SelectedDay]
+	day := common.Schedule[selectedDay][common.Shift[selectedDay]:]
 	for i := range day {
 		if i == common.SelectedBlock {
-			common.Schedule[common.Days[common.G.SelectedDay]] = append(day[:i], day[i+1:]...)
+			common.Schedule[selectedDay] = append(day[:i], day[i+1:]...)
 
-			common.UpdatedDays[common.Days[common.G.SelectedDay]] = true
+			common.UpdatedDays[selectedDay] = true
 			break
 		}
 	}

@@ -19,7 +19,8 @@ func SelectBlockForMod() {
 
 // setModBlockForm shows user view based modify block form
 func setModBlockForm(g *gocui.Gui, v *gocui.View) error {
-	day := common.Schedule[common.Days[common.G.SelectedDay]]
+	selectedDay := common.Days[common.G.SelectedDay]
+	day := common.Schedule[selectedDay][common.Shift[selectedDay]:]
 	dayLen := len(day)
 	if common.SelectBlockForMod && common.SelectedBlock < dayLen {
 		maxX, maxY := common.G.Size()
@@ -55,9 +56,10 @@ func modBlock(startTime, finishTime, Description string) error {
 		return err
 	}
 	removeBlock()
-	day := common.Schedule[common.Days[common.G.SelectedDay]]
-	common.Schedule[common.Days[common.G.SelectedDay]] = schedule.SortDay(append(day, block))
+	selectedDay := common.Days[common.G.SelectedDay]
+	day := common.Schedule[selectedDay][common.Shift[selectedDay]:]
+	common.Schedule[selectedDay] = schedule.SortDay(append(day, block))
 
-	common.UpdatedDays[common.Days[common.G.SelectedDay]] = true
+	common.UpdatedDays[selectedDay] = true
 	return nil
 }
