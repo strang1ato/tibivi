@@ -86,11 +86,11 @@ func previousDayView(g *gocui.Gui, v *gocui.View) error {
 }
 
 func shiftBlock(g *gocui.Gui, v *gocui.View) error {
-	currentDay := common.Days[common.G.SelectedDay]
-	dayLen := len(common.Schedule[currentDay])
-	if !(common.SelectBlockForRemove || common.SelectBlockForMod) || common.SelectedBlock >= common.BlocksInBuffer[currentDay]-1 {
-		if common.Shift[currentDay] < dayLen-common.BlocksInBuffer[common.Days[common.G.SelectedDay]] {
-			common.Shift[currentDay]++
+	selectedDay := common.Days[common.G.SelectedDay]
+	dayLen := len(common.Schedule[selectedDay])
+	if !(common.SelectBlockForRemove || common.SelectBlockForMod) || common.SelectedBlock >= common.BlocksInBuffer[selectedDay]-1 {
+		if common.Shift[selectedDay] < dayLen-common.BlocksInBuffer[selectedDay] {
+			common.Shift[selectedDay]++
 			layout_utils.UpdateLayout()
 		}
 	}
@@ -99,9 +99,9 @@ func shiftBlock(g *gocui.Gui, v *gocui.View) error {
 
 func unShiftBlock(g *gocui.Gui, v *gocui.View) error {
 	if !(common.SelectBlockForRemove || common.SelectBlockForMod) || common.SelectedBlock <= 0 {
-		currentDay := common.Days[common.G.SelectedDay]
-		if common.Shift[currentDay] > 0 {
-			common.Shift[currentDay]--
+		selectedDay := common.Days[common.G.SelectedDay]
+		if common.Shift[selectedDay] > 0 {
+			common.Shift[selectedDay]--
 			layout_utils.UpdateLayout()
 		}
 	}
@@ -109,9 +109,10 @@ func unShiftBlock(g *gocui.Gui, v *gocui.View) error {
 }
 
 func moveBlockSelection() {
-	blocksInBuffer := common.BlocksInBuffer[common.Days[common.G.SelectedDay]]
+	selectedDay := common.Days[common.G.SelectedDay]
+	blocksInBuffer := common.BlocksInBuffer[selectedDay]
 	if common.SelectedBlock >= blocksInBuffer && blocksInBuffer != 0 {
-		common.SelectedBlock = len(common.Schedule[common.Days[common.G.SelectedDay]]) - 1
+		common.SelectedBlock = len(common.Schedule[selectedDay]) - 1
 	}
 	layout_utils.UpdateLayout()
 }
