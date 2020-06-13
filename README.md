@@ -60,9 +60,9 @@ Make sure you have Go 1.14 installed and `$GOPATH/bin` added to `$PATH`, then ex
 
 Download latest binary from [releases](https://github.com/oltarzewskik/tibivi/releases)
 
-then set `0755` permission to file by for example:
+then set `755` permission to file by for example:
 ```bash
-   chmod a+x <path-to-tibivi>
+   chmod 755 <path-to-tibivi>
 ```
 
 and move tibivi binary to directory in `$PATH`
@@ -70,11 +70,21 @@ and move tibivi binary to directory in `$PATH`
 
 ## Keybindings
 
-### Schedule
+### Day Schedule
 
-| Keybinding                | Action                                |
-| --------------------------|---------------------------------------|
-| <kbd>h</kbd> <kbd>l</kbd> | Navigate in selection of day schedule |
+| Keybinding                  | Action                                 |
+| ----------------------------|----------------------------------------|
+| <kbd>h</kbd> <kbd>l</kbd>   | Navigate in selection of day schedules |
+| <kbd>j</kbd> <kbd>k</kbd>   | Scroll in day schedule                 |
+| <kbd>f</kbd> <kbd>Esc</kbd> | Go to week schedule                    |
+
+### Week Schedule
+
+| Keybinding                | Action                                 |
+| --------------------------|----------------------------------------|
+| <kbd>h</kbd> <kbd>l</kbd> | Navigate in selection of day schedules |
+| <kbd>j</kbd> <kbd>k</kbd> | Scroll in day schedule                 |
+| <kbd>f</kbd>              | Focus on selected day                  |
 
 ### Bar
 
