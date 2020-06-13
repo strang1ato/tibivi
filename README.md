@@ -113,9 +113,10 @@ and move tibivi binary to directory in `$PATH`
 
 ## Commands
 
-| Command | Action                         |
-| --------|--------------------------------|
-| :w      | Write changes to datafiles     |
-| :q      | Exit tibivi                    |
-| :q!     | Exit tibivi and ignore changes |
-| :wq     | Write and exit tibivi          |
+| Command | Action                                |
+| --------|---------------------------------------|
+| :w      | Write changes to datafiles            |
+| :q      | Exit tibivi                           |
+| :q!     | Exit tibivi and ignore changes        |
+| :wq     | Write and exit tibivi                 |
+| :day    | Returns in bar currently selected day |

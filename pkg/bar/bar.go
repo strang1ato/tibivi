@@ -81,6 +81,8 @@ func executeCommand(g *gocui.Gui, v *gocui.View) error {
 		return actions.Write()
 	case "wq", "wq!":
 		return actions.WriteQuit()
+	case "day":
+		fmt.Fprint(common.Views.Bar["bar"], actions.SelectedDay())
 	default:
 		if notEmpty {
 			fmt.Fprint(common.Views.Bar["bar"], "\x1b[41m"+"Not a tibivi command: "+command+"\x1b[0m")

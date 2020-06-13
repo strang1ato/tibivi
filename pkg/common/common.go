@@ -19,6 +19,7 @@ var (
 	CurrentDay           int
 	CurrentTime          float32
 	CurrentViewOnTop     string
+	Focus                bool
 	UpdatedDays          map[string]bool
 	BlocksInBuffer       map[string]int
 	SelectedBlock        int
@@ -51,6 +52,7 @@ func SetCommonVars() error {
 	CurrentDay = currentDay
 	CurrentTime = currentTime
 	CurrentViewOnTop = Days[CurrentDay]
+	Focus = true
 	UpdatedDays = make(map[string]bool)
 	BlocksInBuffer = make(map[string]int)
 	Shift = make(map[string]int)

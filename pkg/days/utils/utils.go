@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"unicode/utf8"
 
-	// "github.com/oltarzewskik/tibivi-gocui"
 	"github.com/oltarzewskik/tibivi/pkg/common"
 	"github.com/oltarzewskik/tibivi/pkg/datatypes"
 )

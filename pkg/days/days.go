@@ -8,11 +8,11 @@ import (
 )
 
 // SetDayView setups day of the week view
-func SetDayView(day string, x0, x1, y1 int) error {
+func SetDayView(day string, x0, y0, x1, y1 int) error {
 	if day == "Sunday" {
 		x1--
 	}
-	if v, err := common.G.SetView(day, x0, 0, x1, y1); err != nil {
+	if v, err := common.G.SetView(day, x0, y0, x1, y1); err != nil {
 		if err != gocui.ErrUnknownView {
 			return err
 		}
@@ -22,6 +22,33 @@ func SetDayView(day string, x0, x1, y1 int) error {
 		width, height := v.Size()
 		common.Views.Days[day] = v
 		days_utils.SetDayViewContent(day, width, height)
+	}
+	return nil
+}
+
+// switchDayViewFocus switches focus
+func switchDayViewFocus(g *gocui.Gui, v *gocui.View) error {
+	if common.Focus {
+		unFocusDayView(g, v)
+	} else {
+		common.Focus = true
+		layout_utils.UpdateLayout()
+	}
+
+	return nil
+}
+
+// unFocusDayView unfocuses from day view to whole week schedule
+func unFocusDayView(g *gocui.Gui, v *gocui.View) error {
+	if common.SelectBlockForRemove || common.SelectBlockForMod {
+		return nil
+	}
+	if common.Focus {
+		common.Focus = false
+		for _, day := range common.Views.Days {
+			day.Frame = true
+		}
+		layout_utils.UpdateLayout()
 	}
 	return nil
 }

@@ -54,3 +54,8 @@ func WriteQuit() error {
 	}
 	return gocui.ErrQuit
 }
+
+// SelectedDay returns selected day view name
+func SelectedDay() string {
+	return common.Days[common.G.SelectedDay]
+}

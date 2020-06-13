@@ -14,12 +14,22 @@ import (
 // UpdateLayout updates layout
 func UpdateLayout() {
 	common.G.Update(func(g *gocui.Gui) error {
-		for _, day := range common.Days {
+		if common.Focus {
+			day := common.Days[common.G.SelectedDay]
 			width, height := common.Views.Days[day].Size()
 			if common.SelectBlockForMod || common.SelectBlockForRemove {
 				days_utils.SetDayViewSelectionContent(day, width, height)
 			} else {
 				days_utils.SetDayViewContent(day, width, height)
+			}
+		} else {
+			for _, day := range common.Days {
+				width, height := common.Views.Days[day].Size()
+				if common.SelectBlockForMod || common.SelectBlockForRemove {
+					days_utils.SetDayViewSelectionContent(day, width, height)
+				} else {
+					days_utils.SetDayViewContent(day, width, height)
+				}
 			}
 		}
 		return nil
