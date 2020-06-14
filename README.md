@@ -23,13 +23,13 @@
 
 ## Advantages of tibivi over other time blocking tools
 
-- ### Easy to use
+- ### Easy-to-use
 
   If you know basic vi/vim features you already know how to use tibivi
 
 - ### Speed
 
-  Tibivi works almost instantly because of being terminal based and being written in fast Go programming language
+  Tibivi works almost instantly because of being terminal based and being written in fast [Go programming language](https://golang.org/)
 
 - ### All data is stored human-readable text files instead of database
 
