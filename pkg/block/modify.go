@@ -57,8 +57,7 @@ func modBlock(startTime, finishTime, Description string) error {
 	}
 	removeBlock()
 	selectedDay := common.Days[common.G.SelectedDay]
-	day := common.Schedule[selectedDay][common.Shift[selectedDay]:]
-	common.Schedule[selectedDay] = schedule.SortDay(append(day, block))
+	common.Schedule[selectedDay] = schedule.SortDay(append(common.Schedule[selectedDay], block))
 
 	common.UpdatedDays[selectedDay] = true
 	return nil

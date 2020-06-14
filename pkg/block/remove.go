@@ -30,7 +30,8 @@ func removeBlock() {
 	day := common.Schedule[selectedDay][common.Shift[selectedDay]:]
 	for i := range day {
 		if i == common.SelectedBlock {
-			common.Schedule[selectedDay] = append(day[:i], day[i+1:]...)
+			common.Schedule[selectedDay] = append(common.Schedule[selectedDay][:i+common.Shift[selectedDay]],
+				common.Schedule[selectedDay][i+common.Shift[selectedDay]+1:]...)
 
 			common.UpdatedDays[selectedDay] = true
 			break
