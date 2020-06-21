@@ -15,7 +15,9 @@ func SetDayViewContent(day string, width, height int) {
 	freeSpace := height
 	common.BlocksInBuffer[day] = 0
 	for _, b := range common.Schedule[v.Name()][common.Shift[day]:] {
-		if v.Name() == common.Days[common.CurrentDay] && (common.CurrentTime >= b.NumStartTime && common.CurrentTime < b.NumFinishTime) {
+		if v.Name() == common.Days[common.CurrentDay] &&
+			((common.CurrentHour > b.NumStartHour || (common.CurrentHour == b.NumStartHour && common.CurrentMinute >= b.NumStartMinute)) &&
+				(common.CurrentHour < b.NumFinishHour || (common.CurrentHour == b.NumFinishHour && common.CurrentMinute < b.NumFinishMinute))) {
 			fmt.Fprintln(v, "\x1b[31m"+b.Description+"\x1b[0m")
 		} else {
 			fmt.Fprintln(v, b.Description)

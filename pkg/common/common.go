@@ -17,7 +17,8 @@ var (
 	Days                 []string
 	DotTibivi            string
 	CurrentDay           int
-	CurrentTime          float32
+	CurrentHour          int
+	CurrentMinute        int
 	CurrentViewOnTop     string
 	Focus                bool
 	UpdatedDays          map[string]bool
@@ -39,7 +40,11 @@ func SetCommonVars() error {
 	if err != nil {
 		return err
 	}
-	currentTime, err := commands.CurrentTime()
+	currentHour, err := commands.CurrentHour()
+	if err != nil {
+		return err
+	}
+	currentMinute, err := commands.CurrentMinute()
 	if err != nil {
 		return err
 	}
@@ -50,7 +55,8 @@ func SetCommonVars() error {
 	Days = []string{"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"}
 	DotTibivi = home + "/.tibivi/"
 	CurrentDay = currentDay
-	CurrentTime = currentTime
+	CurrentHour = currentHour
+	CurrentMinute = currentMinute
 	CurrentViewOnTop = Days[CurrentDay]
 	Focus = true
 	UpdatedDays = make(map[string]bool)

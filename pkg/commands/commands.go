@@ -20,17 +20,22 @@ func CurrentDay() (int, error) {
 	return currentDay, nil
 }
 
-// CurrentTime returns current time
-func CurrentTime() (float32, error) {
+// CurrentHour returns current hour
+func CurrentHour() (int, error) {
 	hour, err := exec.Command("date", "+%H").Output()
 	if err != nil {
 		return 0, err
 	}
-	currentHour, _ := strconv.ParseFloat(string(hour[:2]), 32)
+	currentHour, _ := strconv.Atoi(string(hour[:2]))
+	return currentHour, nil
+}
+
+// CurrentMinute returns current minute
+func CurrentMinute() (int, error) {
 	minute, err := exec.Command("date", "+%M").Output()
 	if err != nil {
 		return 0, err
 	}
-	currentMinute, _ := strconv.ParseFloat(string(minute[:2]), 32)
-	return float32(currentHour + currentMinute/60), nil
+	currentMinute, _ := strconv.Atoi(string(minute[:2]))
+	return currentMinute, nil
 }

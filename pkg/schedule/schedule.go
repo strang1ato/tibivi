@@ -89,13 +89,12 @@ func AddNumTimes(b *datatypes.Block) (*datatypes.Block, error) {
 	if FinishMinute > 60 || FinishMinute < 0 {
 		return nil, errors.New("Block end minute is wrong")
 	}
-
-	NumStartTime := float32(StartHour) + float32(StartMinute)/60
-	NumFinishTime := float32(FinishHour) + float32(FinishMinute)/60
-	if NumStartTime >= NumFinishTime {
-		return nil, errors.New("Block start time is equal or greater than end time")
+	if StartHour > FinishHour || StartHour == FinishHour && StartMinute >= FinishMinute {
+		return nil, errors.New("Block start time is equal or greater than finish time")
 	}
-	b.NumStartTime, b.NumFinishTime = NumStartTime, NumFinishTime
+
+	b.NumStartHour, b.NumStartMinute = StartHour, StartMinute
+	b.NumFinishHour, b.NumFinishMinute = FinishHour, FinishMinute
 	return b, nil
 }
 
@@ -104,7 +103,8 @@ func SortDay(day datatypes.Day) datatypes.Day {
 	for i := 1; i < len(day); i++ {
 		j := i
 		for j > 0 {
-			if day[j].NumStartTime < day[j-1].NumStartTime {
+			if day[j].NumStartHour < day[j-1].NumStartHour ||
+				(day[j].NumStartHour == day[j-1].NumStartHour && day[j].NumStartMinute < day[j-1].NumStartMinute) {
 				day[j], day[j-1] = day[j-1], day[j]
 			}
 			j--

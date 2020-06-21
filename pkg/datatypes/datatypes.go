@@ -11,5 +11,6 @@ type Block struct {
 	StartHour, StartMinute,
 	FinishHour, FinishMinute,
 	Description string
-	NumStartTime, NumFinishTime float32
+	NumStartHour, NumStartMinute,
+	NumFinishHour, NumFinishMinute int
 }

@@ -44,9 +44,13 @@ func UpdateLayoutOnCurrentBlockChange() {
 	currentSecond, _ := strconv.ParseFloat(string(second[:2]), 32)
 	time.Sleep(time.Duration(60-currentSecond) * time.Second)
 	for {
-		common.CurrentTime = common.CurrentTime + float32(1)/60
-		if common.CurrentTime >= 24 {
-			common.CurrentTime = float32(0)
+		common.CurrentMinute++
+		if common.CurrentMinute >= 60 {
+			common.CurrentMinute = 0
+			common.CurrentHour++
+		}
+		if common.CurrentHour >= 24 {
+			common.CurrentHour = 0
 			common.CurrentDay++
 			if common.CurrentDay > 6 {
 				common.CurrentDay = 0
