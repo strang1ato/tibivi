@@ -60,9 +60,9 @@ Make sure you have Go 1.14 installed and `$GOPATH/bin` added to `$PATH`, then ex
 
 Download latest binary from [releases](https://github.com/oltarzewskik/tibivi/releases)
 
-then set `755` permission to file by for example:
+then make file executable by for example:
 ```bash
-   chmod 755 <path-to-tibivi>
+   chmod +x <path-to-tibivi>
 ```
 
 and move tibivi binary to directory in `$PATH`
