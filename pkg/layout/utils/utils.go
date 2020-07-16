@@ -1,12 +1,11 @@
 package layout_utils
 
 import (
-	"os/exec"
-	"strconv"
 	"sync"
 	"time"
 
 	"github.com/oltarzewskik/tibivi-gocui"
+	"github.com/oltarzewskik/tibivi/pkg/commands"
 	"github.com/oltarzewskik/tibivi/pkg/common"
 	"github.com/oltarzewskik/tibivi/pkg/days/utils"
 )
@@ -40,28 +39,15 @@ var mutex = sync.Mutex{}
 
 // UpdateLayoutOnCurrentBlockChange when run in goroutine updates layout if current time block changed
 func UpdateLayoutOnCurrentBlockChange() {
-	second, _ := exec.Command("date", "+%S").Output()
-	currentSecond, _ := strconv.ParseFloat(string(second[:2]), 32)
-	time.Sleep(time.Duration(60-currentSecond) * time.Second)
 	for {
-		common.CurrentMinute++
-		if common.CurrentMinute >= 60 {
-			common.CurrentMinute = 0
-			common.CurrentHour++
-		}
-		if common.CurrentHour >= 24 {
-			common.CurrentHour = 0
-			common.CurrentDay++
-			if common.CurrentDay > 6 {
-				common.CurrentDay = 0
-			}
-		}
+		common.CurrentHour, common.CurrentMinute, _ = commands.CurrentTime()
+		common.CurrentDay, _ = commands.CurrentDay()
 
 		mutex.Lock()
 		UpdateLayout()
 		mutex.Unlock()
 
-		time.Sleep(time.Minute)
+		time.Sleep(time.Second)
 	}
 }
 

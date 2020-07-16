@@ -40,11 +40,7 @@ func SetCommonVars() error {
 	if err != nil {
 		return err
 	}
-	currentHour, err := commands.CurrentHour()
-	if err != nil {
-		return err
-	}
-	currentMinute, err := commands.CurrentMinute()
+	currentHour, currentMinute, err := commands.CurrentTime()
 	if err != nil {
 		return err
 	}
