@@ -106,10 +106,21 @@ func formInsertMode(g *gocui.Gui, v *gocui.View) error {
 		common.Views.Bar["bar"].Clear()
 		fmt.Fprint(common.Views.Bar["bar"], "\x1b[1m"+"-- INSERT --"+"\x1b[0m")
 
-		for _, name := range formFields {
-			common.Views.Block[name].Editable = true
-		}
 		common.G.Cursor = true
+		for _, name := range formFields {
+			block := common.Views.Block[name]
+			bufferLen := len(block.Buffer())-1
+			block.Editable = true
+			block.SetCursor(0, 0)
+			if name == "formDescription" {
+				blockWidth, _ := block.Size()
+				cursorWidth := bufferLen % blockWidth
+				cursorHeight := bufferLen / blockWidth
+				block.MoveCursor(cursorWidth, cursorHeight, true)
+			} else {
+				block.MoveCursor(bufferLen, 0, true)
+			}
+		}
 	}
 	return nil
 }
