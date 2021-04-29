@@ -1,7 +1,7 @@
 package views
 
 import (
-	"github.com/oltarzewskik/tibivi-gocui"
+	"github.com/strang1ato/tibivi-gocui"
 )
 
 // Views is struct of tibivi views

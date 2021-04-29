@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"unicode/utf8"
 
-	"github.com/oltarzewskik/tibivi/pkg/common"
-	"github.com/oltarzewskik/tibivi/pkg/datatypes"
+	"github.com/strang1ato/tibivi/pkg/common"
+	"github.com/strang1ato/tibivi/pkg/datatypes"
 )
 
 // SetDayViewContent sets content of day view

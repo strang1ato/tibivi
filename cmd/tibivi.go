@@ -1,13 +1,13 @@
 package cmd
 
 import (
-	"github.com/oltarzewskik/tibivi-gocui"
-	"github.com/oltarzewskik/tibivi/pkg/common"
-	"github.com/oltarzewskik/tibivi/pkg/config"
-	"github.com/oltarzewskik/tibivi/pkg/keybindings"
-	"github.com/oltarzewskik/tibivi/pkg/layout"
-	"github.com/oltarzewskik/tibivi/pkg/layout/utils"
-	"github.com/oltarzewskik/tibivi/pkg/schedule"
+	"github.com/strang1ato/tibivi-gocui"
+	"github.com/strang1ato/tibivi/pkg/common"
+	"github.com/strang1ato/tibivi/pkg/config"
+	"github.com/strang1ato/tibivi/pkg/keybindings"
+	"github.com/strang1ato/tibivi/pkg/layout"
+	"github.com/strang1ato/tibivi/pkg/layout/utils"
+	"github.com/strang1ato/tibivi/pkg/schedule"
 )
 
 // Run runs Tibivi

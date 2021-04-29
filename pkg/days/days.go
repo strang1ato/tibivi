@@ -1,10 +1,10 @@
 package days
 
 import (
-	"github.com/oltarzewskik/tibivi-gocui"
-	"github.com/oltarzewskik/tibivi/pkg/common"
-	"github.com/oltarzewskik/tibivi/pkg/days/utils"
-	"github.com/oltarzewskik/tibivi/pkg/layout/utils"
+	"github.com/strang1ato/tibivi-gocui"
+	"github.com/strang1ato/tibivi/pkg/common"
+	"github.com/strang1ato/tibivi/pkg/days/utils"
+	"github.com/strang1ato/tibivi/pkg/layout/utils"
 )
 
 // SetDayView setups day of the week view

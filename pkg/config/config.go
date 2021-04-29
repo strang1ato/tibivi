@@ -3,7 +3,7 @@ package config
 import (
 	"os"
 
-	"github.com/oltarzewskik/tibivi/pkg/common"
+	"github.com/strang1ato/tibivi/pkg/common"
 )
 
 // CreateDotTibivi creates tibivi's dotfolder with its files if they don't exist

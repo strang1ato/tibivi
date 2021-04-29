@@ -3,10 +3,10 @@ package block
 import (
 	"fmt"
 
-	"github.com/oltarzewskik/tibivi-gocui"
-	"github.com/oltarzewskik/tibivi/pkg/common"
-	"github.com/oltarzewskik/tibivi/pkg/keybindings/utils"
-	"github.com/oltarzewskik/tibivi/pkg/layout/utils"
+	"github.com/strang1ato/tibivi-gocui"
+	"github.com/strang1ato/tibivi/pkg/common"
+	"github.com/strang1ato/tibivi/pkg/keybindings/utils"
+	"github.com/strang1ato/tibivi/pkg/layout/utils"
 )
 
 var (
@@ -109,7 +109,7 @@ func formInsertMode(g *gocui.Gui, v *gocui.View) error {
 		common.G.Cursor = true
 		for _, name := range formFields {
 			block := common.Views.Block[name]
-			bufferLen := len(block.Buffer())-1
+			bufferLen := len(block.Buffer()) - 1
 			block.Editable = true
 			block.SetCursor(0, 0)
 			if name == "formDescription" {

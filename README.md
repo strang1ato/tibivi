@@ -1,13 +1,13 @@
 <div align="center">
   <p>Terminal based, inspired by vi/vim time blocking tool</p>
   <br>
-  <a href="https://goreportcard.com/report/github.com/oltarzewskik/tibivi">
-    <img src="https://goreportcard.com/badge/github.com/oltarzewskik/tibivi">
+  <a href="https://goreportcard.com/report/github.com/strang1ato/tibivi">
+    <img src="https://goreportcard.com/badge/github.com/strang1ato/tibivi">
   </a>
   <a href="http://makeapullrequest.com">
     <img src="https://img.shields.io/badge/PRs-welcome-brightgreen">
   </a>
-  <a href="https://github.com/oltarzewskik/tibivi/blob/master/LICENSE">
+  <a href="https://github.com/strang1ato/tibivi/blob/master/LICENSE">
     <img src="https://img.shields.io/badge/license-MIT-brightgreen">
   </a>
   <br>
@@ -52,12 +52,12 @@
 
 Make sure you have Go 1.14 installed and `$GOPATH/bin` added to `$PATH`, then execute:
 ```bash
-  go get -u github.com/oltarzewskik/tibivi
+  go get -u github.com/strang1ato/tibivi
 ```
 
 ### Binary
 
-Download latest binary from [releases](https://github.com/oltarzewskik/tibivi/releases)
+Download latest binary from [releases](https://github.com/strang1ato/tibivi/releases)
 
 then make file executable by for example:
 ```bash

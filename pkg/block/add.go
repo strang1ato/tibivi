@@ -4,10 +4,10 @@ import (
 	"errors"
 	"strings"
 
-	"github.com/oltarzewskik/tibivi-gocui"
-	"github.com/oltarzewskik/tibivi/pkg/common"
-	"github.com/oltarzewskik/tibivi/pkg/datatypes"
-	"github.com/oltarzewskik/tibivi/pkg/schedule"
+	"github.com/strang1ato/tibivi-gocui"
+	"github.com/strang1ato/tibivi/pkg/common"
+	"github.com/strang1ato/tibivi/pkg/datatypes"
+	"github.com/strang1ato/tibivi/pkg/schedule"
 )
 
 var addingBlock bool

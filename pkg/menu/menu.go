@@ -3,9 +3,9 @@ package menu
 import (
 	"fmt"
 
-	"github.com/oltarzewskik/tibivi-gocui"
-	"github.com/oltarzewskik/tibivi/pkg/block"
-	"github.com/oltarzewskik/tibivi/pkg/common"
+	"github.com/strang1ato/tibivi-gocui"
+	"github.com/strang1ato/tibivi/pkg/block"
+	"github.com/strang1ato/tibivi/pkg/common"
 )
 
 var (

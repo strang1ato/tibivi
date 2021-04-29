@@ -3,7 +3,7 @@ package main
 import (
 	"log"
 
-	"github.com/oltarzewskik/tibivi/cmd"
+	"github.com/strang1ato/tibivi/cmd"
 )
 
 func main() {

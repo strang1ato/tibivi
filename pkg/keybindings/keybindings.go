@@ -1,13 +1,13 @@
 package keybindings
 
 import (
-	"github.com/oltarzewskik/tibivi-gocui"
-	"github.com/oltarzewskik/tibivi/pkg/actions"
-	"github.com/oltarzewskik/tibivi/pkg/bar"
-	"github.com/oltarzewskik/tibivi/pkg/block"
-	"github.com/oltarzewskik/tibivi/pkg/common"
-	"github.com/oltarzewskik/tibivi/pkg/days"
-	"github.com/oltarzewskik/tibivi/pkg/menu"
+	"github.com/strang1ato/tibivi-gocui"
+	"github.com/strang1ato/tibivi/pkg/actions"
+	"github.com/strang1ato/tibivi/pkg/bar"
+	"github.com/strang1ato/tibivi/pkg/block"
+	"github.com/strang1ato/tibivi/pkg/common"
+	"github.com/strang1ato/tibivi/pkg/days"
+	"github.com/strang1ato/tibivi/pkg/menu"
 )
 
 // Keybindings create keyboard keybindings

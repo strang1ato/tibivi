@@ -1,8 +1,8 @@
 package keybindings_utils
 
 import (
-	"github.com/oltarzewskik/tibivi-gocui"
-	"github.com/oltarzewskik/tibivi/pkg/common"
+	"github.com/strang1ato/tibivi-gocui"
+	"github.com/strang1ato/tibivi/pkg/common"
 )
 
 // SetViewsKeybinding sets keybinding to set of views

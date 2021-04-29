@@ -3,10 +3,10 @@ package common
 import (
 	"os"
 
-	"github.com/oltarzewskik/tibivi-gocui"
-	"github.com/oltarzewskik/tibivi/pkg/commands"
-	"github.com/oltarzewskik/tibivi/pkg/datatypes"
-	"github.com/oltarzewskik/tibivi/pkg/views"
+	"github.com/strang1ato/tibivi-gocui"
+	"github.com/strang1ato/tibivi/pkg/commands"
+	"github.com/strang1ato/tibivi/pkg/datatypes"
+	"github.com/strang1ato/tibivi/pkg/views"
 )
 
 // Declare variables used by multiple packages

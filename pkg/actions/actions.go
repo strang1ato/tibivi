@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/oltarzewskik/tibivi-gocui"
-	"github.com/oltarzewskik/tibivi/pkg/common"
+	"github.com/strang1ato/tibivi-gocui"
+	"github.com/strang1ato/tibivi/pkg/common"
 )
 
 // Quit closes tibivi if schedule wasn't changed

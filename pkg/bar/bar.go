@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/oltarzewskik/tibivi-gocui"
-	"github.com/oltarzewskik/tibivi/pkg/actions"
-	"github.com/oltarzewskik/tibivi/pkg/common"
+	"github.com/strang1ato/tibivi-gocui"
+	"github.com/strang1ato/tibivi/pkg/actions"
+	"github.com/strang1ato/tibivi/pkg/common"
 )
 
 // SetBar setups "bar" and ":" views
