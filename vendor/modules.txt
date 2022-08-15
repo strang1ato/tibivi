@@ -1,11 +1,11 @@
-# github.com/mattn/go-runewidth v0.0.12
-## explicit
+# github.com/mattn/go-runewidth v0.0.13
+## explicit; go 1.9
 github.com/mattn/go-runewidth
-# github.com/nsf/termbox-go v1.1.0
-## explicit
+# github.com/nsf/termbox-go v1.1.1
+## explicit; go 1.15
 github.com/nsf/termbox-go
-# github.com/rivo/uniseg v0.2.0
-## explicit
+# github.com/rivo/uniseg v0.3.4
+## explicit; go 1.18
 github.com/rivo/uniseg
 # github.com/strang1ato/tibivi-gocui v0.0.1
 ## explicit
