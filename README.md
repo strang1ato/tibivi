@@ -50,9 +50,9 @@
 
 ### From source
 
-Make sure you have Go 1.14 installed and `$GOPATH/bin` added to `$PATH`, then execute:
+Make sure you have Go installed and `$GOPATH/bin` added to `$PATH`, then execute:
 ```bash
-  go get -u github.com/strang1ato/tibivi
+  go install github.com/strang1ato/tibivi@latest
 ```
 
 ### Binary
